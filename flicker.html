@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Flicker</title>
+		<link rel="icon" type="image/x-icon" href="../resimler/icon.png">
+		
+		<style>
+			*{box-sizing: border-box;}
+			body {
+			font-family: 'Poppins', sans-serif;
+			margin: 10px;
+			background: linear-gradient(135deg, #b3ccc2, #877353, #403621);
+			background-attachment: fixed;
+			color: #f9f9f9;
+			}
+			h1, h2, h3 {
+			font-family: 'Playfair Display', serif; 
+			}
+			
+			.menu {
+				display: flex;
+				gap: 10px;
+				padding: 10px;
+			}
+			.geri, .anaButon, .iletisim{
+				display:inline-block;
+				
+				margin: 2px;
+				padding:5px 15px;
+				text-align: left;
+				background-color: rgba(49, 77, 196, 0.9);
+				
+				border-radius: 10px; 
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				font-weight: bold;
+				font-size: 14px;
+				color: #f9f9f9 !important;
+				text-decoration: none;
+				
+				border: 1px solid #403621;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+				transition: all 0.3s ease;
+			}
+			
+			.geri:hover, .anaButon:hover, .iletisim:hover {
+				background-color: #877353;
+				border: 1px solid #403621;
+				transform: translateY(-3px);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+				
+			}
+			.iletisim:hover { color: #fff !important; }
+
+
+			.header{
+				background-image: url('../resimler/flicker.jpg');
+				background-size: cover;
+				background-position: center 16%;
+				background-repeat: no-repeat;
+				
+				color: #f9f9f9;
+				
+				border: 1px solid #403621;
+				margin: 5px 0 20px 0;
+				padding: 0 50px;
+				text-align: left;
+				
+				border-radius: 15px; 
+				text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+				
+				aspect-ratio: 21 / 6; 
+				display: flex; 
+				align-items: center; 
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+			}
+			.infoAlbümler{
+				
+				display: flex;
+				gap: 15px;
+				width: 100%;
+			}
+			.info, .sarki{
+				color: #f9f9f9;
+				border: 1px solid #403621;
+				padding: 20px;
+				text-align: left;
+				width:40%;
+				
+				background: rgba(64, 54, 33, 0.45);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+				border-radius: 15px;
+			}
+			.info { width: 40%; }
+			.sarki { width: 60%; display: flex; flex-direction: column; }
+			
+			.sarki h2 {
+				margin-top: 0;
+				margin-bottom: 15px;
+			}
+			
+			.sarki-ici {
+				display: flex;
+				gap: 15px;
+				width: 100%;
+				align-items: stretch;
+			}
+			
+			.sarki-tablo, .oylama-formu {
+				border-radius: 12px;
+				background: rgba(179, 204, 194, 0.25);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+				border: 1px solid #403621;
+				box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.3);
+				max-height: 800px;
+				overflow-y: auto;
+			}
+			.sarki-tablo {
+				display: grid;
+				grid-template-columns: 35% 65%;
+				width: 65%;
+			}
+			
+			.oylama-formu {
+				width: 35%;
+				padding: 15px;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.oylama-formu h3 { margin-top: 0; margin-bottom: 5px;}
+
+			.hucre {
+				padding: 15px;
+				border-bottom: 1px solid #403621;
+				display: flex;
+				align-items: center; 
+				justify-content: center;
+				text-align: center;
+				transition: background-color 0.3s ease;
+			}
+
+			.hucre.sol {
+				border-right: 1px solid #403621;
+			}
+			
+			.hucre h3 {
+				margin: 0;
+			}
+
+			.sarki-tablo .hucre:nth-last-child(-n+2) {
+				border-bottom: none;
+			}
+			hr {
+				border: none;
+				border-top: 1px solid #403621;
+				margin-bottom: 15px;
+			}
+			
+			.sarki-tablo::-webkit-scrollbar, .oylama-formu::-webkit-scrollbar { width: 8px; }
+			.sarki-tablo::-webkit-scrollbar-track, .oylama-formu::-webkit-scrollbar-track { background: transparent; }
+			.sarki-tablo::-webkit-scrollbar-thumb, .oylama-formu::-webkit-scrollbar-thumb {
+				background: rgba(135, 115, 83, 0.6);
+				border-radius: 10px;
+			}
+			.sarki-tablo::-webkit-scrollbar-thumb:hover, .oylama-formu::-webkit-scrollbar-thumb:hover {
+				background: rgba(64, 54, 33, 0.8);
+			}
+		
+
+			.sarki-oy-satiri {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px dashed #403621;
+				padding-bottom: 8px;
+				padding-top: 5px;
+				font-size: 14px;
+				gap: 10px;
+				transition: background-color 0.3s ease;
+			}
+			.sarki-oy-satiri:hover, .hucre:hover {
+				background-color: rgba(255, 255, 255, 0.1);
+				border-radius: 8px;
+			}
+			
+			.sarki-oy-satiri span {
+				flex: 1;
+				min-width: 120px;
+			}
+
+			.puan-secimi {
+				padding: 4px;
+				border-radius: 5px;
+				border: 1px solid #080404;
+				background-color: #314DC4 !important;
+				color: #f9f9f9;
+				font-weight: bold;
+				cursor: pointer;
+				flex-shrink: 0;
+				outline: none;
+			}
+			
+			.puan-secimi option {
+				background-color: #403621; 
+				color: #f9f9f9; 
+				font-weight: bold;
+			}
+
+			.sonuc-kutusu {
+				margin-top: 15px;
+				padding: 15px;
+				background-color: rgba(49, 77, 196, 0.9);
+				backdrop-filter: blur(5px);
+				border-radius: 8px;
+				color: #f9f9f9;
+				text-align: center;
+				border: 1px solid #403621;
+				display: none; 
+			}
+			
+			@media screen and (max-width: 1100px) {
+				.infoAlbümler { flex-direction: column; }
+				.info, .sarki { width: 100%; }
+				.sarki-ici { flex-direction: column; }
+				.sarki-tablo, .oylama-formu { width: 100%; }
+			}
+
+			@media screen and (max-width: 600px) {
+				.header { aspect-ratio: 16 / 8; padding: 0 20px; }
+				.sarki-tablo { grid-template-columns: 1fr; }
+				.hucre.sol { border-right: none; border-bottom: 1px dashed rgba(226, 183, 206, 0.4); }
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<div class="menu">
+			<a href="../nh.html" class="geri">Geri</a>
+			<a href="../Oyluyoruz.html" class="anaButon">Ana Sayfa</a>
+			<a href="../iletisim.html" class="iletisim">İletişim</a>
+		</div>
+	
+		
+		
+		<div class="header">
+		<h1>Flicker</h1>
+		</div>
+		
+		<div class="infoAlbümler">
+		
+			<div class="info">
+			<h2>Albüm Hakkında</h2>
+			<hr>
+			<p>
+			Flicker, İrlandalı şarkıcı ve söz yazarı Niall Horan'ın ilk solo stüdyo albümüdür . 20 Ekim 2017'de Capitol Records tarafından yayınlandı.Albümün çıkış parçası olan " This Town ", 29 Eylül 2016'da yayınlandı , ardından " Slow Hands ", " Too Much to Ask ", " On the Loose " ve " Seeing Blind " parçaları geldi.<br><br>
+			Flicker, ABD'de 152.000 adet satış yaparak Billboard 200 listesine bir numaradan giriş yaptı ve Horan'ın solo sanatçı olarak ABD'deki ilk bir numaralı albümü oldu.<br><br>
+			Eylül 2016'da Horan'ın Capitol Records ile solo bir anlaşma imzaladığı duyuruldu. Entertainment Weekly ile yaptığı bir röportajda Horan, albümün Fleetwood Mac ve Eagles gibi klasik rock gruplarından ilham aldığını söyledi . "Gitarı elime aldığım her seferinde doğal olarak böyle akorlar çalardım, çok fazla parmakla çalardım ve o folk tarzını çalardım." Ayrıca koleksiyonun "pop ile folk karışımı bir his" taşıdığını da belirtti.<br><br>
+			Ağustos 2017'de Horan, Londra'daki Shepherd's Bush Empire'da verdiği canlı bir konserde albümden birkaç şarkıyı ilk kez seslendirdi . Maren Morris ile iletişime geçtiğini ve " Seeing Blind " şarkısına katkıda bulunmasını istediğini açıkladı. 15 Eylül 2017'de Horan, sosyal medya hesaplarından albümün adını, kapak resmini ve yayın tarihini ve albümün üçüncü single'ı " Too Much to Ask " in yayınlanacağını duyurdu . Şarkı listesi 22 Eylül 2017'de açıklandı. Horan, Zane Lowe'un Beats 1 radyo programında, albümün başlık şarkısı "Flicker"ın kendisi için en anlamlı şarkı olduğunu ve "kayıt sürecinde çok dokunaklı bir an" olduğunu, hatta "albümün geri kalanını kaydetme şeklimi değiştirdiğini" söyledi. Ayrıca The Independent'taki köşe yazısında Damien Rice'ın O albümünün , söz konusu parçanın ve "Paper Houses"ın yapımına ilham verdiğini ifade etti.<br>
+			
+			</p>
+			</div>
+		
+			<div class="sarki">
+				<h2>Şarkılar</h2>
+					
+				<div class="sarki-ici">	
+				
+					<div class="sarki-tablo">
+					
+					<div class="hucre sol">
+						<h3>Şarkı İsimleri</h3>
+					</div>
+					<div class="hucre">
+					</div>
+					
+					<div class="hucre sol">
+						1. On the Loose
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0kThmY7A0ynir2qLWFFhrY?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						2. This Town
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0qvzXomUDJVaUboy2wMfiS?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						3. Seeing Blind (with Maren Morris)
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/65wnZsZLKJimfK1cTFOfa1?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						4. Slow Hands
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2cOUlop2ZakjOKe4WinesN?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						5. Too Much to Ask
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/39jXnbACjiaiTwwhsr5sY5?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						6. Paper Houses
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1hJ6KojJObbRvjuVj8Ezya?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						7. Since We're Alone
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4WZT0Mi3tD0XrYRkkDlxNN?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						8. Flicker
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5BpmwiKR6ns1EtfCQRpNUc?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						9. Fire Away
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7JyZzz4rMPMWMsb27vArSN?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						10. You And Me
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/69GWewQgiJozsgSb9dDEgY?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						11. On My Own
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2JL820UpxG8mLGWt1jjNRx?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						12. Mirrors
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6aGwF9D2BqmcSzF0JpfzJu?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						13. The Tide
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2wulDoMWELRDOBbTkVoDH3?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+
+			</div>
+		<div class="oylama-formu">
+                        <h3>Oylama Formu</h3>
+                        <hr style="margin-bottom: 5px;">
+                        
+                        <div class="sarki-oy-satiri">
+                            <span>1. On the Loose:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>2. This Town:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>3. Seeing Blind (with Maren Morris):</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>4. Slow Hands:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>5. Too Much to Ask:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>6. Paper Houses:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>7. Since We're Alone:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>8. Flicker:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>9. Fire Away:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>10. You and Me:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>11. On My Own:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>12. Mirrors:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>13. The Tide:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <button class="anaButon" style="text-align: center; margin-top: 10px;" onclick="ortalamaHesapla()">Sonucu Gör</button>
+
+                        <div id="sonucAlani" class="sonuc-kutusu">
+                            <p style="margin:0; font-weight:bold;">Ortalamanız: <span id="puanEkrani" style="font-size: 20px;">0.0</span></p>
+                            <p id="mesajEkrani" style="margin-top: 10px; font-weight:bold;"></p>
+                        </div>
+
+                    </div>
+                    </div>
+            </div>
+		</div>
+
+        <script>
+            function ortalamaHesapla() {
+                let secimler = document.querySelectorAll('.puan-secimi');
+                let toplamPuan = 0;
+                let oyVerilenSarkiSayisi = 0;
+
+                secimler.forEach(function(secim) {
+                    let puan = parseInt(secim.value);
+                    if (puan > 0) { 
+                        toplamPuan += puan;
+                        oyVerilenSarkiSayisi++;
+                    }
+                });
+
+                
+                if (oyVerilenSarkiSayisi === 0) {
+                    alert("Lütfen en az bir şarkıya puan verin!");
+                    return; 
+                }
+
+                
+                let ortalama = toplamPuan / oyVerilenSarkiSayisi;
+                let yuvarlanmisOrtalama = ortalama.toFixed(1);
+
+                
+                document.getElementById('puanEkrani').innerText = yuvarlanmisOrtalama;
+
+                
+                let mesaj = "";
+                if (yuvarlanmisOrtalama >= 4.5) {
+                    mesaj = "Bu albüm senin favorin!";
+                } else if (yuvarlanmisOrtalama >= 3.5) {
+                    mesaj = "Bu albümü seviyorsun ama favorin olmayabilir.";
+                } else if (yuvarlanmisOrtalama >= 2.0) {
+                    mesaj = "Sadece birkaç şarkısını seviyorsun.";
+                } else {
+                    mesaj = "Bu albüm sana göre olmayabilir.";
+                }
+
+                document.getElementById('mesajEkrani').innerText = mesaj;
+                document.getElementById('sonucAlani').style.display = 'block';
+            }
+        </script>
+	</body>
+</html>

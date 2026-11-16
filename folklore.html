@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Folklore</title>
+		<link rel="icon" type="image/x-icon" href="../resimler/icon.png">
+		
+		<style>
+			*{box-sizing: border-box;}
+			body {
+			font-family: 'Poppins', sans-serif;
+			margin: 10px;
+			background: linear-gradient(135deg, #cfd3ce, #999f99, #545954);
+			background-attachment: fixed;
+			color: #2a2b2a;
+			}
+			h1, h2, h3 {
+			font-family: 'Playfair Display', serif; 
+			}
+			
+			.menu {
+				display: flex;
+				gap: 10px;
+				padding: 10px;
+			}
+			.geri, .anaButon, .iletisim{
+				display:inline-block;
+				
+				margin: 2px;
+				padding:5px 15px;
+				text-align: left;
+				background-color: #697068;
+				
+				border-radius: 10px; 
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				font-weight: bold;
+				font-size: 14px;
+				color: #f4f4f4 !important;
+				text-decoration: none;
+				
+				border: 1px solid #4e544d;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+				transition: all 0.3s ease;
+			}
+			
+			.geri:hover, .anaButon:hover, .iletisim:hover {
+				background-color: #4e544d;
+				border-color: #2a2b2a;
+				transform: translateY(-3px);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+				
+			}
+			.iletisim:hover { color: #fff !important; }
+
+
+			.header{
+				background-image: url('../resimler/folklore.jpg');
+				background-size: cover;
+				background-position: center 35%;
+				background-repeat: no-repeat;
+				
+				color: #f4f4f4;
+				
+				border: 1px solid #999f99;
+				margin: 5px 0 20px 0;
+				padding: 0 50px;
+				text-align: left;
+				
+				border-radius: 15px; 
+				text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+				
+				aspect-ratio: 21 / 6; 
+				display: flex; 
+				align-items: center; 
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+			}
+			.infoAlbümler{
+				
+				display: flex;
+				gap: 15px;
+				width: 100%;
+			}
+			.info, .sarki{
+				color: #2a2b2a;
+				border: 1px solid rgba(255, 255, 255, 0.4);
+				padding: 20px;
+				text-align: left;
+				width:40%;
+				
+				background: rgba(235, 235, 235, 0.65);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+				border-radius: 15px;
+			}
+			.info { width: 40%; }
+			.sarki { width: 60%; display: flex; flex-direction: column; }
+			
+			.sarki h2 {
+				margin-top: 0;
+				margin-bottom: 15px;
+			}
+			
+			.sarki-ici {
+				display: flex;
+				gap: 15px;
+				width: 100%;
+				align-items: stretch;
+			}
+			
+			.sarki-tablo, .oylama-formu {
+				border-radius: 12px;
+				background: rgba(245, 245, 245, 0.6);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+				border: 1px solid rgba(255, 255, 255, 0.5);
+				box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.05);
+				max-height: 800px;
+				overflow-y: auto;
+			}
+			.sarki-tablo {
+				display: grid;
+				grid-template-columns: 35% 65%;
+				width: 65%;
+			}
+			
+			.oylama-formu {
+				width: 35%;
+				padding: 15px;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.oylama-formu h3 { margin-top: 0; margin-bottom: 5px;}
+
+			.hucre {
+				padding: 15px;
+				border-bottom: 1px solid #aeb3ad;
+				display: flex;
+				align-items: center; 
+				justify-content: center;
+				text-align: center;
+				transition: background-color 0.3s ease;
+			}
+
+			.hucre.sol {
+				border-right: 2px solid #aeb3ad;
+				
+				
+			}
+			
+			.hucre h3 {
+				margin: 0;
+			}
+
+			.sarki-tablo .hucre:nth-last-child(-n+2) {
+				border-bottom: none;
+			}
+			hr {
+				border: none;
+				border-top: 1px solid #697068;
+				margin-bottom: 15px;
+			}
+			
+			.sarki-tablo::-webkit-scrollbar, .oylama-formu::-webkit-scrollbar { width: 8px; }
+			.sarki-tablo::-webkit-scrollbar-track, .oylama-formu::-webkit-scrollbar-track { background: transparent; }
+			.sarki-tablo::-webkit-scrollbar-thumb, .oylama-formu::-webkit-scrollbar-thumb {
+				background: #899088;
+				border-radius: 10px;
+			}
+			.sarki-tablo::-webkit-scrollbar-thumb:hover, .oylama-formu::-webkit-scrollbar-thumb:hover {
+				background: #697068;
+			}
+		
+
+			.sarki-oy-satiri {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px dashed #aeb3ad;
+				padding-bottom: 8px;
+				padding-top: 5px;
+				font-size: 14px;
+				gap: 10px;
+				transition: background-color 0.3s ease;
+			}
+			.sarki-oy-satiri:hover, .hucre:hover {
+				background-color: rgba(105, 112, 104, 0.15);
+				border-radius: 8px;
+			}
+			
+			.sarki-oy-satiri span {
+				flex: 1;
+				min-width: 120px;
+			}
+
+			.puan-secimi {
+				padding: 4px;
+				border-radius: 5px;
+				border: 1px solid #4e544d;
+				background-color: #697068;
+				color: #f4f4f4;
+				font-weight: bold;
+				cursor: pointer;
+				flex-shrink: 0;
+				outline: none;
+			}
+
+			.sonuc-kutusu {
+				margin-top: 15px;
+				padding: 15px;
+				background-color: #4e544d;
+				backdrop-filter: blur(5px);
+				border-radius: 8px;
+				color: #f4f4f4;
+				text-align: center;
+				border: 1px solid #2a2b2a;
+				display: none; 
+			}
+			
+			@media screen and (max-width: 1100px) {
+				.infoAlbümler { flex-direction: column; }
+				.info, .sarki { width: 100%; }
+				.sarki-ici { flex-direction: column; }
+				.sarki-tablo, .oylama-formu { width: 100%; }
+			}
+
+			@media screen and (max-width: 600px) {
+				.header { aspect-ratio: 16 / 8; padding: 0 20px; }
+				.sarki-tablo { grid-template-columns: 1fr; }
+				.hucre.sol { border-right: none; border-bottom: 1px dashed rgba(226, 183, 206, 0.4); }
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<div class="menu">
+			<a href="../ts.html" class="geri">Geri</a>
+			<a href="../Oyluyoruz.html" class="anaButon">Ana Sayfa</a>
+			<a href="../iletisim.html" class="iletisim">İletişim</a>
+		</div>
+	
+		
+		
+		<div class="header">
+		<h1>Folklore</h1>
+		</div>
+		
+		<div class="infoAlbümler">
+		
+			<div class="info">
+			<h2>Albüm Hakkında</h2>
+			<hr>
+			<p>
+			Folklore, Amerikalı şarkıcı-söz yazarı Taylor Swift'in sekizinci stüdyo albümüdür24 Temmuz 2020'de Republic Records aracılığıyla sürpriz bir şekilde yayınlandı .2020'ninbaşlarında, COVID-19 pandemisi sırasında karantina esnasında tasarlanan albüm, kaçış , nostalji ve romantizm temalarını ele alıyor . Swift, vokallerini Los Angeles'taki ev stüdyosunda kaydetti ve Hudson Vadisi ve New York City'deki stüdyolarından çalışan yapımcılar Aaron Dessner ve Jack Antonoff ile sanal olarak çalıştı.<br><br>
+			Albüm, kurgusal anlatıları betimlemek için bir dizi karakter ve öykü akışı kullanarak, Swift'in önceki albümlerini karakterize eden otobiyografik şarkı yazımından ayrılıyor. Yeni müzik tarzlarıyla deneyler yapan Folklore , piyano , yaylılar , orkestrasyon ve kısık sesli perküsyonla desteklenen yumuşak baladlardan oluşuyor . Müzik eleştirmenleri türü, folk , pop ve indie'nin çeşitli stillerine , yani chamber pop , indie folk , elektro-folk , folk rock ve indie rock'a ayırdı . Albümün adı, halk masallarının kalıcı mirasından ilham almıştır ve görsel estetiği cottagecore'u benimser.<br><br>
+			Folklore albümüne , Swift'in yorumlarını ve performanslarını içeren Folklore: The Long Pond Studio Sessions adlı konser belgeseli eşlik etti . Albüm, Avustralya ve çeşitli Avrupa ülkelerinde listelerin zirvesine yerleşti ve Avustralya, Avusturya, Danimarka, Fransa, İtalya, Yeni Zelanda, Norveç, Polonya, Portekiz ve Birleşik Krallık'ta platin veya daha yüksek sertifika aldı . Amerika Birleşik Devletleri'nde Billboard 200 listesinin zirvesinde sekiz hafta geçirdi , 2020'nin en çok satan albümü oldu ve Amerika Kayıt Endüstrisi Birliği (RIAA) tarafından altı kez platin sertifikası aldı. " Cardigan ", " The 1 " ve Bon Iver'ın yer aldığı " Exile " adlı üç şarkı, uluslararası single listelerinde ilk 10'a girdi ve "Cardigan" Billboard Hot 100 listesinde bir numaraya yükseldi.<br><br>
+			Folklore, duygusal ağırlığı ve incelikli sözleriyle geniş çapta eleştirel beğeni topladı; bazı gazeteciler, içe dönük tonunun pandemi için zamanında olduğunu ve sesinin Swift'in sanatının cesur bir yeniden icadı olduğunu belirtti. Birçok yayın, albümü 2020 yıl sonu sıralamalarına dahil etti ve Rolling Stone, 2023'te " Tüm Zamanların En İyi 500 Albümü " listesinin revizyonuna ekledi . Folklore, 63. Yıllık Grammy Ödülleri'nde Yılın Albümü ödülünü kazanarak Swift'i bu ödülü üç kez kazanan ilk kadın yaptı. Albüm, Swift'in bir sonraki albümü Evermore'un (2020) konseptini şekillendirdi ve diğer sanatçıların çalışmalarına ilham verdi.<br>
+			</p>
+			</div>
+		
+			<div class="sarki">
+				<h2>Şarkılar</h2>
+					
+				<div class="sarki-ici">	
+				
+					<div class="sarki-tablo">
+					
+					<div class="hucre sol">
+						<h3>Şarkı İsimleri</h3>
+					</div>
+					<div class="hucre">
+					</div>
+					
+					<div class="hucre sol">
+						1. the 1
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0Jlcvv8IykzHaSmj49uNW8?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+
+					<div class="hucre sol">
+						2. cardigan
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4R2kfaDFhslZEMJqAFNpdd?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						3. the last great american dynasty
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2Eeur20xVqfUoM3Q7EFPFt?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						4. exile (Ft. Bon Iver)
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4pvb0WLRcMtbPGmtejJJ6y?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						5. my tears ricochet
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1MgV7FIyNxIG7WzMRJV5HC?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						6. mirrorball
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0ZNU020wNYvgW84iljPkPP?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						7. seven
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6KJqZcs9XDgVck7Lg9QOTC?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						8. august
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3hUxzQpSfdDqwM3ZTFQY0K?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						9. this is me trying
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7kt9e9LFSpN1zQtYEl19o1?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						10. illicit affairs
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2NmsngXHeC1GQ9wWrzhOMf?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						11. invisible string
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6VsvKPJ4xjVNKpI8VVZ3SV?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						12. mad woman
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2QDyYdZyhlP2fp79KZX8Bi?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						13. epiphany
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/08fa9LFcFBTcilB3iq2e2A?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						14. betty
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5kI4eCXXzyuIUXjQra0Cxi?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						15. peace
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7MbT4I8qGntX4fMdqMQgke?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						16. hoax 
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6MWoRt97mnSTXZhu3ggi9C?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						17. the lakes 
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0eFQWVz0qIxDOvhLpZ40P7?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+			</div>
+		<div class="oylama-formu">
+                        <h3>Oylama Formu</h3>
+                        <hr style="margin-bottom: 5px;">
+                        
+                        <div class="sarki-oy-satiri">
+                            <span>1. the 1:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>2. cardigan:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>3. the last great american dynasty:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>4. exile (Ft. Bon Iver):</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>5. my tears ricochet:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>6. mirrorball:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>7. seven:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>8. august:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>9. this is me trying:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>10. illicit affairs:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>11. invisible string:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>12. mad woman:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>13. epiphany:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>14. betty:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>15. peace:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>16. hoax:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>17. the lakes:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+                        <button class="anaButon" style="text-align: center; margin-top: 10px;" onclick="ortalamaHesapla()">Sonucu Gör</button>
+
+                        <div id="sonucAlani" class="sonuc-kutusu">
+                            <p style="margin:0; font-weight:bold;">Ortalamanız: <span id="puanEkrani" style="font-size: 20px;">0.0</span></p>
+                            <p id="mesajEkrani" style="margin-top: 10px; font-weight:bold;"></p>
+                        </div>
+
+                    </div>
+                    </div>
+            </div>
+		</div>
+
+        <script>
+            function ortalamaHesapla() {
+                let secimler = document.querySelectorAll('.puan-secimi');
+                let toplamPuan = 0;
+                let oyVerilenSarkiSayisi = 0;
+
+                secimler.forEach(function(secim) {
+                    let puan = parseInt(secim.value);
+                    if (puan > 0) { 
+                        toplamPuan += puan;
+                        oyVerilenSarkiSayisi++;
+                    }
+                });
+
+                
+                if (oyVerilenSarkiSayisi === 0) {
+                    alert("Lütfen en az bir şarkıya puan verin!");
+                    return; 
+                }
+
+                
+                let ortalama = toplamPuan / oyVerilenSarkiSayisi;
+                let yuvarlanmisOrtalama = ortalama.toFixed(1);
+
+                
+                document.getElementById('puanEkrani').innerText = yuvarlanmisOrtalama;
+
+                
+                let mesaj = "";
+                if (yuvarlanmisOrtalama >= 4.5) {
+                    mesaj = "Bu albüm senin favorin!";
+                } else if (yuvarlanmisOrtalama >= 3.5) {
+                    mesaj = "Bu albümü seviyorsun ama favorin olmayabilir.";
+                } else if (yuvarlanmisOrtalama >= 2.0) {
+                    mesaj = "Sadece birkaç şarkısını seviyorsun.";
+                } else {
+                    mesaj = "Bu albüm sana göre olmayabilir.";
+                }
+
+                document.getElementById('mesajEkrani').innerText = mesaj;
+                document.getElementById('sonucAlani').style.display = 'block';
+            }
+        </script>
+	</body>
+</html>

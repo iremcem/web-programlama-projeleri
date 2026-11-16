@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Speak Now</title>
+		<link rel="icon" type="image/x-icon" href="../resimler/icon.png">
+		
+		<style>
+	
+			*{box-sizing: border-box;}
+			body {
+			font-family: 'Poppins', sans-serif;
+			margin: 10px;
+			background: linear-gradient(135deg, #2b0f4c, #632e6d, #923c81);
+			background-attachment: fixed;
+			color: white;
+			}
+			h1, h2, h3 {
+			font-family: 'Playfair Display', serif; 
+			}
+			
+			.menu {
+				display: flex;
+				gap: 10px;
+				padding: 10px;
+			}
+			.geri, .anaButon, .iletisim{
+				display:inline-block;
+				
+				margin: 2px;
+				padding:5px 15px;
+				text-align: left;
+				background-color: #923c81;
+				
+				border-radius: 10px; 
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				font-weight: bold;
+				font-size: 14px;
+				color: white !important;
+				text-decoration: none;
+				
+				border: 2px solid 	#632e6d;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+				transition: all 0.3s ease;
+			}
+			
+			.geri:hover, .anaButon:hover, .iletisim:hover {
+				background-color: #db7ca5;
+				
+				transform: translateY(-3px);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+				
+			}
+			.iletisim:hover { color: #fff !important; }
+
+
+			.header{
+				background-image: url('../resimler/speaknow.jpg');
+				background-size: cover;
+				background-position: center 19%;
+				background-repeat: no-repeat;
+				
+				color: #e2b7ce;
+				
+				border: 1px solid  	#632e6d;
+				margin: 5px 0 20px 0;
+				padding: 0 50px;
+				text-align: left;
+				
+				border-radius: 15px; 
+				text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+				
+				aspect-ratio: 21 / 6; 
+				display: flex; 
+				align-items: center; 
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+			}
+			.infoAlbümler{
+				
+				display: flex;
+				gap: 15px;
+				width: 100%;
+			}
+			.info, .sarki{
+				
+				color: White;
+				border: 5px solid 	#632e6d;
+				padding: 20px;
+				text-align: left;
+				width:40%;
+				
+				background: rgba(146, 60, 129, 0.25);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				border: 1px solid rgba(226, 183, 206, 0.2);
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+				
+				border-radius: 15px; 
+			}
+			.info { width: 40%; }
+			.sarki { width: 60%; display: flex; flex-direction: column; }
+			
+			.sarki h2 {
+				margin-top: 0;
+				margin-bottom: 15px;
+			}
+			
+			.sarki-ici {
+				display: flex;
+				gap: 15px;
+				width: 100%;
+				align-items: stretch;
+			}
+			
+			.sarki-tablo, .oylama-formu {
+				border-radius: 12px;
+				
+				background: rgba(226, 183, 206, 0.15);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+				border: 1px solid rgba(226, 183, 206, 0.3);
+				box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);
+				
+				max-height: 800px;
+				overflow-y: auto;
+			}
+			.sarki-tablo {
+				display: grid;
+				grid-template-columns: 35% 65%;
+				width: 65%;
+			}
+			
+			.oylama-formu {
+				width: 35%;
+				padding: 15px;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.oylama-formu h3 { margin-top: 0; margin-bottom: 5px;}
+
+			.hucre {
+				padding: 15px;
+				border-bottom: 1px solid #632e6d; 
+				display: flex;
+				align-items: center; 
+				justify-content: center;
+				text-align: center;
+				transition: background-color 0.3s ease;
+			}
+
+			.hucre.sol {
+				border-right: 2px solid #632e6d; 
+				
+				
+			}
+			
+			.hucre h3 {
+				margin: 0;
+			}
+
+			.sarki-tablo .hucre:nth-last-child(-n+2) {
+				border-bottom: none;
+			}
+			hr {
+				border: none;
+				border-top: 1px solid 	#632e6d;
+				margin-bottom: 15px;
+			}
+			
+			/* Özel Kaydırma Çubuğu (Scrollbar) Tasarımı */
+			.sarki-tablo::-webkit-scrollbar, .oylama-formu::-webkit-scrollbar { width: 8px; }
+			.sarki-tablo::-webkit-scrollbar-track, .oylama-formu::-webkit-scrollbar-track { background: transparent; }
+			.sarki-tablo::-webkit-scrollbar-thumb, .oylama-formu::-webkit-scrollbar-thumb {
+				background: rgba(226, 183, 206, 0.4); 
+				border-radius: 10px; 
+			}
+			.sarki-tablo::-webkit-scrollbar-thumb:hover, .oylama-formu::-webkit-scrollbar-thumb:hover {
+				background: rgba(226, 183, 206, 0.7); 
+			}
+		
+
+			.sarki-oy-satiri {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px dashed 	#632e6d;
+				padding-bottom: 8px;
+				padding-top: 5px;
+				font-size: 14px;
+				gap: 10px;
+				transition: background-color 0.3s ease;
+			}
+			.sarki-oy-satiri:hover, .hucre:hover {
+				background-color: rgba(255, 255, 255, 0.1);
+				border-radius: 8px;
+			}
+			
+			.sarki-oy-satiri span {
+				flex: 1;
+				min-width: 120px;
+			}
+
+			.puan-secimi {
+				padding: 4px;
+				border-radius: 5px;
+				border: 1px solid #632e6d;
+				background-color: #db7ca5;
+				color: white;
+				font-weight: bold;
+				cursor: pointer;
+				flex-shrink: 0;
+				outline: none;
+			}
+
+			.sonuc-kutusu {
+				margin-top: 15px;
+				padding: 15px;
+				background-color:#db7ca5;
+				backdrop-filter: blur(5px);
+				border-radius: 8px;
+				color: white;
+				text-align: center;
+				border: 1px solid #632e6d;
+				display: none; 
+			}
+			
+			@media screen and (max-width: 1100px) {
+				.infoAlbümler { flex-direction: column; }
+				.info, .sarki { width: 100%; }
+				.sarki-ici { flex-direction: column; }
+				.sarki-tablo, .oylama-formu { width: 100%; }
+			}
+
+			@media screen and (max-width: 600px) {
+				.header { aspect-ratio: 16 / 8; padding: 0 20px; }
+				.sarki-tablo { grid-template-columns: 1fr; }
+				.hucre.sol { border-right: none; border-bottom: 1px dashed rgba(226, 183, 206, 0.4); }
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<div class="menu">
+			<a href="../ts.html" class="geri">Geri</a>
+			<a href="../Oyluyoruz.html" class="anaButon">Ana Sayfa</a>
+			<a href="../iletisim.html" class="iletisim">İletişim</a>
+		</div>
+	
+		
+		
+		<div class="header">
+		<h1>Speak Now</h1>
+		</div>
+		
+		<div class="infoAlbümler">
+		
+			<div class="info">
+			<h2>Albüm Hakkında</h2>
+			<hr>
+			<p>Speak Now, Amerikalı şarkıcı ve söz yazarı Taylor Swift'in üçüncü stüdyo albümüdür . 25 Ekim 2010'da Big Machine Records aracılığıyla yayınlandıergenlikten yetişkinliğe geçişini yansıtmak için 2009-2010 yılları arasındaki turnesi sırasında albümü tamamen kendi başına yazdı<br><br>
+			Swift, Speak Now'ı, şarkılarının kahramanlarına iletmek istediği söylenmemiş şeyleri konu alan, gevşek bir konsept albüm olarak tanımladı. İtiraf niteliğindeki şarkı yazımını kullanan albüm, çoğunlukla kalp kırıklığı ve kırık ilişkiler üzerine düşüncelerden oluşuyor ve bazı parçalar, Swift'in kamuoyundaki yükselen yıldızlığından ilham alarak eleştirmenlerine ve rakiplerine hitap ediyor. Swift ve Nathan Chapman'ın prodüktörlüğünü üstlendiği Speak Now , country pop , country rock , pop rock ve power pop'u bir araya getiriyor . Şarkıları belirgin rock tarzlarını içeriyor ve melodileri, akustik enstrümanların çınlayan elektro gitarlar , dinamik davullar ve orkestra yaylılarıyla iç içe geçmesiyle karakterize ediliyor.<br><br>
+			Albümün yayınlanmasının ardından Swift, Şubat 2011'den Mart 2012'ye kadar süren Speak Now Dünya Turu'na çıktı . Albüm , ABD Billboard Hot 100 listesinde ilk ona giren " Mine " ve " Back to December " ile ABD Hot Country Songs listesinde bir numaraya yükselen " Sparks Fly " ve " Ours " dahil olmak üzere altı single ile desteklendi . Speak Now , listelerin zirvesine yerleşti ve Avustralya, Kanada ve Yeni Zelanda'da çoklu platin sertifikası aldı . Amerika Birleşik Devletleri'nde, ilk yayın haftasında bir milyon kopya sattı, Billboard 200 listesinde altı hafta boyunca bir numarada kaldı ve Amerika Kayıt Endüstrisi Birliği tarafından altı milyon albüm eşdeğer birimini aşarak altı kez platin sertifikası aldı.<br><br>
+			Müzik eleştirmenleri genel olarak Speak Now albümünü radyoda çalınmaya uygun melodileri ve duygusal etkisi nedeniyle övdü . Bazı eleştirmenler şarkı sözlerinin Swift'in erken yetişkinlik dönemindeki olgunluğunu yansıttığını düşünürken, diğerleri ise çatışmacı parçaları sığ buldu. 2012'deki 54. Grammy Ödülleri'nde Speak Now , En İyi Country Albümü dalında aday gösterildi ve " Mean " adlı single'ı En İyi Country Şarkısı ve En İyi Country Solo Performansı ödüllerini kazandı. Albüm, Billboard ve Spin'in 2010'lu yılların sonu listelerinde yer aldı ve Rolling Stone dergisi tarafından "Tüm Zamanların En İyi 50 Kadın Albümü" (2012) ve "21. Yüzyılın Şimdiye Kadarki En İyi 250 Albümü" (2025) listelerinde sıralandı. Swift'in eski albümlerinin sahipliğiyle ilgili 2019'daki anlaşmazlığın ardından, 2023'te yeniden kaydedilmiş Speak Now (Taylor's Version) albümünü yayınladı ve Speak Now'ın ana kayıt hakları 2025'te Swift tarafından satın alındı.<br><br>
+			</p>
+			</div>
+		
+			<div class="sarki">
+				<h2>Şarkılar</h2>
+					
+				<div class="sarki-ici">	
+				
+					<div class="sarki-tablo">
+					
+					<div class="hucre sol">
+						<h3>Şarkı İsimleri</h3>
+					</div>
+					<div class="hucre">
+					</div>
+					
+					<div class="hucre sol">
+						1. Mine
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7G0gBu6nLdhFDPRLc0HdDG?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+
+					<div class="hucre sol">
+						2. Sparks Fly
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3MytWN8L7shNYzGl4tAKRp?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						3. Back To December
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/79uDOz0zuuWS7HWxzMmTa2?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						4. Speak Now
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5xXqyjLicvEpch72qEryFT?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						5. Dear John
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1zU8j1x3yi9xalMF96pzKp?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						6. Mean
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/30Y4CV7A6YqtQtTTo7Ue4j?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						7. The Story Of Us
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6dTA6y0C2ReQklntzZl8l3?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						8. Never Grow Up
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2EFZ9emtKWEglWUQGEQ3P9?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						9. Enchanted
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3sW3oSbzsfecv9XoUdGs7h?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						10. Better Than Revenge
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0NwGC0v03ysCYINtg6ns58?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						11. Innocent
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/12nBPF4Rh4XLFJV0YLN7uj?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						12. Haunted
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4tMzIAFTFdqGBQLdfbPces?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						13. Last Kiss
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/59KOoHFcw5XfICnO57holu?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						14. Long Live
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4hqJ4bSlYJOXb6Z4SRmzxs?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						15. Ours
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3yNJkriPzWjkkDAWHIAVUq?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						16. Superman
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4evLyY5Ue1Wesc61t2KXAU?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						17. Electric Touch
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4e3ZNTAV6PCrdYMUrUlMpQ?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						18. When Emma Falls in Love 
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0zo975x58DlXbZllWvfYhg?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						19. I Can See You
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5kHMfzgLZP95O9NBy0ku4v?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						20. Castles Crumbling
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4ABYxlb92WBIjHu7TIKmml?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						21. Foolish One
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4ABYxlb92WBIjHu7TIKmml?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						22. Timeless
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1HCdems7PQZRj42QDWLA0A?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+			</div>
+		<div class="oylama-formu">
+                        <h3>Oylama Formu</h3>
+                        <hr style="margin-bottom: 5px;">
+                        
+                        <div class="sarki-oy-satiri">
+                            <span>1. Mine:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>2. Sparks Fly:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>3. Back To December:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>4. Speak Now:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>5. Dear John:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>6. Mean:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>7. The Story Of Us:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>8. Never Grow Up:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>9. Enchanted:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>10. Better Than Revenge:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>11. Innocent:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>12. Haunted:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>13. Last Kiss:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>14. Long Live:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>15. Ours:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>16. Superman:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>17. Electric Touch:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>18. When Emma Falls in Love:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>19. I Can See You:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>20. Castles Crumbling:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>21. Foolish One:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>22. Timeless:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+
+                        <button class="anaButon" style="text-align: center; margin-top: 10px;" onclick="ortalamaHesapla()">Sonucu Gör</button>
+
+                        <div id="sonucAlani" class="sonuc-kutusu">
+                            <p style="margin:0; font-weight:bold;">Ortalamanız: <span id="puanEkrani" style="font-size: 20px;">0.0</span></p>
+                            <p id="mesajEkrani" style="margin-top: 10px; font-weight:bold;"></p>
+                        </div>
+
+                    </div>
+                    </div>
+            </div>
+		</div>
+
+        <script>
+            function ortalamaHesapla() {
+                let secimler = document.querySelectorAll('.puan-secimi');
+                let toplamPuan = 0;
+                let oyVerilenSarkiSayisi = 0;
+
+                secimler.forEach(function(secim) {
+                    let puan = parseInt(secim.value);
+                    if (puan > 0) { 
+                        toplamPuan += puan;
+                        oyVerilenSarkiSayisi++;
+                    }
+                });
+
+                
+                if (oyVerilenSarkiSayisi === 0) {
+                    alert("Lütfen en az bir şarkıya puan verin!");
+                    return; 
+                }
+
+                
+                let ortalama = toplamPuan / oyVerilenSarkiSayisi;
+                let yuvarlanmisOrtalama = ortalama.toFixed(1);
+
+                
+                document.getElementById('puanEkrani').innerText = yuvarlanmisOrtalama;
+
+                
+                let mesaj = "";
+                if (yuvarlanmisOrtalama >= 4.5) {
+                    mesaj = "Bu albüm senin favorin!";
+                } else if (yuvarlanmisOrtalama >= 3.5) {
+                    mesaj = "Bu albümü seviyorsun ama favorin olmayabilir.";
+                } else if (yuvarlanmisOrtalama >= 2.0) {
+                    mesaj = "Sadece birkaç şarkısını seviyorsun.";
+                } else {
+                    mesaj = "Bu albüm sana göre olmayabilir.";
+                }
+
+                document.getElementById('mesajEkrani').innerText = mesaj;
+                document.getElementById('sonucAlani').style.display = 'block';
+            }
+        </script>
+	</body>
+</html>

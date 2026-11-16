@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Harry's House</title>
+		<link rel="icon" type="image/x-icon" href="../resimler/icon.png">
+		
+		<style>
+			*{box-sizing: border-box;}
+			body {
+			font-family: 'Poppins', sans-serif;
+			margin: 10px;
+			background: linear-gradient(135deg, #99653e, #d8b194, #ae825f);
+			background-attachment: fixed;
+			color: #ffffff;
+			}
+			h1, h2, h3 {
+			font-family: 'Playfair Display', serif; 
+			}
+			
+			.menu {
+				display: flex;
+				gap: 10px;
+				padding: 10px;
+			}
+			.geri, .anaButon, .iletisim{
+				display:inline-block;
+				
+				margin: 2px;
+				padding:5px 15px;
+				text-align: left;
+				background-color: rgba(174, 130, 95, 0.9);
+				
+				border-radius: 10px; 
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				font-weight: bold;
+				font-size: 14px;
+				color: white !important;
+				text-decoration: none;
+				
+				border: 1px solid rgba(255, 255, 255, 0.4);
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+				transition: all 0.3s ease;
+			}
+			
+			.geri:hover, .anaButon:hover, .iletisim:hover {
+				background-color: #99653e;
+				border-color: #d8b194;
+				transform: translateY(-3px);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+				
+			}
+			.iletisim:hover { color: #fff !important; }
+
+
+			.header{
+				background-image: url('../resimler/harryshouse.jpg');
+				background-size: cover;
+				background-position: center 30%;
+				background-repeat: no-repeat;
+				
+				color: #ffffff;
+				
+				border: 1px solid rgba(255, 255, 255, 0.3);
+				margin: 5px 0 20px 0;
+				padding: 0 50px;
+				text-align: left;
+				
+				border-radius: 15px; 
+				text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+				
+				aspect-ratio: 21 / 6; 
+				display: flex; 
+				align-items: center; 
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+			}
+			.infoAlbümler{
+				
+				display: flex;
+				gap: 15px;
+				width: 100%;
+			}
+			.info, .sarki{
+				color: #ffffff;
+				border: 1px solid #99653e;
+				padding: 20px;
+				text-align: left;
+				width:40%;
+				
+				background: rgba(216, 177, 148, 0.2);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+				border-radius: 15px;
+			}
+			.info { width: 40%; }
+			.sarki { width: 60%; display: flex; flex-direction: column; }
+			
+			.sarki h2 {
+				margin-top: 0;
+				margin-bottom: 15px;
+			}
+			
+			.sarki-ici {
+				display: flex;
+				gap: 15px;
+				width: 100%;
+				align-items: stretch;
+			}
+			
+			.sarki-tablo, .oylama-formu {
+				border-radius: 12px;
+				background: rgba(193, 143, 134, 0.25);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.3);
+				max-height: 800px;
+				overflow-y: auto;
+			}
+			.sarki-tablo {
+				display: grid;
+				grid-template-columns: 35% 65%;
+				width: 65%;
+			}
+			
+			.oylama-formu {
+				width: 35%;
+				padding: 15px;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.oylama-formu h3 { margin-top: 0; margin-bottom: 5px;}
+
+			.hucre {
+				padding: 15px;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+				display: flex;
+				align-items: center; 
+				justify-content: center;
+				text-align: center;
+				transition: background-color 0.3s ease;
+			}
+
+			.hucre.sol {
+				border-right: 1px solid rgba(255, 255, 255, 0.2);
+			}
+			
+			.hucre h3 {
+				margin: 0;
+			}
+
+			.sarki-tablo .hucre:nth-last-child(-n+2) {
+				border-bottom: none;
+			}
+			hr {
+				border: none;
+				border-top: 1px solid rgba(255, 255, 255, 0.3);
+				margin-bottom: 15px;
+			}
+			
+			.sarki-tablo::-webkit-scrollbar, .oylama-formu::-webkit-scrollbar { width: 8px; }
+			.sarki-tablo::-webkit-scrollbar-track, .oylama-formu::-webkit-scrollbar-track { background: transparent; }
+			.sarki-tablo::-webkit-scrollbar-thumb, .oylama-formu::-webkit-scrollbar-thumb {
+				background: rgba(193, 143, 134, 0.6);
+				border-radius: 10px;
+			}
+			.sarki-tablo::-webkit-scrollbar-thumb:hover, .oylama-formu::-webkit-scrollbar-thumb:hover {
+				background: rgba(153, 101, 62, 0.8);
+			}
+		
+
+			.sarki-oy-satiri {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+				padding-bottom: 8px;
+				padding-top: 5px;
+				font-size: 14px;
+				gap: 10px;
+				transition: background-color 0.3s ease;
+			}
+			.sarki-oy-satiri:hover, .hucre:hover {
+				background-color: rgba(255, 255, 255, 0.1);
+				border-radius: 8px;
+			}
+			
+			.sarki-oy-satiri span {
+				flex: 1;
+				min-width: 120px;
+			}
+
+			.puan-secimi {
+				padding: 4px;
+				border-radius: 5px;
+				border: 1px solid rgba(255, 255, 255, 0.4);
+				background-color: #ae825f !important;
+				color: white;
+				font-weight: bold;
+				cursor: pointer;
+				flex-shrink: 0;
+				outline: none;
+			}
+			
+			.puan-secimi option {
+				background-color: #99653e; 
+				color: white; 
+				font-weight: bold;
+			}
+
+			.sonuc-kutusu {
+				margin-top: 15px;
+				padding: 15px;
+				background-color: rgba(153, 101, 62, 0.9);
+				backdrop-filter: blur(5px);
+				border-radius: 8px;
+				color: white;
+				text-align: center;
+				border: 1px solid rgba(255, 255, 255, 0.3);
+				display: none; 
+			}
+			
+			@media screen and (max-width: 1100px) {
+				.infoAlbümler { flex-direction: column; }
+				.info, .sarki { width: 100%; }
+				.sarki-ici { flex-direction: column; }
+				.sarki-tablo, .oylama-formu { width: 100%; }
+			}
+
+			@media screen and (max-width: 600px) {
+				.header { aspect-ratio: 16 / 8; padding: 0 20px; }
+				.sarki-tablo { grid-template-columns: 1fr; }
+				.hucre.sol { border-right: none; border-bottom: 1px dashed rgba(226, 183, 206, 0.4); }
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<div class="menu">
+			<a href="../hs.html" class="geri">Geri</a>
+			<a href="../Oyluyoruz.html" class="anaButon">Ana Sayfa</a>
+			<a href="../iletisim.html" class="iletisim">İletişim</a>
+		</div>
+	
+		
+		
+		<div class="header">
+		<h1>Harry's House</h1>
+		</div>
+		
+		<div class="infoAlbümler">
+		
+			<div class="info">
+			<h2>Albüm Hakkında</h2>
+			<hr>
+			<p>
+			Harry's House, İngiliz şarkıcı ve söz yazarı Harry Styles'ın üçüncü stüdyo albümüdürve 20 Mayıs 2022'de Erskine ve Columbia Records tarafından yayınlanmıştır . Albümün büyük bir kısmı 2020 ve 2021 yıllarında yazılmış ve kaydedilmiştir ve Styles'ın en içe dönük çalışması olarak nitelendirilmiştir. 1970'lerin Japon şehir popundan ilham alan Harry's House , synth-pop , new wave , pop rock ve pop-funk türlerini harmanlayan biralbümdür.<br><br>
+			Albüm, Styles'ın kariyerindeki en iyi ilk hafta satış rakamlarıyla piyasaya çıktı. 113.000 albüm eşdeğer birimiyle İngiltere Albüm Listesi'nde bir numaraya yerleşerek , ülkede 2022 yılının en hızlı satan ve en çok satan albümü oldu. Ayrıca 330.000 albüm satışı da dahil olmak üzere 521.500 albüm eşdeğer birimiyle ABD Billboard 200 listesinde de bir numaraya yerleşti . Avustralya, Belçika, Kanada, Fransa, Almanya, İrlanda, İtalya, Hollanda, Yeni Zelanda, İspanya, İsveç ve İsviçre dahil olmak üzere çeşitli diğer ülkelerde de bir numaraya yerleşti.<br><br>
+			Harry 's House, prodüksiyonuyla eleştirmenlerden büyük beğeni topladı. Albüm, " As It Was ", " Late Night Talking ", " Music for a Sushi Restaurant " ve " Satellite " single'larıyla desteklendi; bunlardan ilki İngiltere ve ABD listelerinde zirveye çıkarak Styles'ın her iki ülkede de ikinci solo bir numaralı şarkısı oldu. Liste başı "As It Was"ın yanı sıra, üç şarkı daha aynı anda ABD Billboard Hot 100 listesinin ilk 10'unda yer aldı : "Late Night Talking", "Music for a Sushi Restaurant" ve " Matilda ", bu da Styles'ı bu başarıyı elde eden ilk İngiliz solo sanatçı yaptı. Albüm, 2022 yıl sonu sıralamalarında birçok kez yer aldı ve çeşitli ödüllere aday gösterildi; Rolling Stone dergisi de 2023 yılında "Tüm Zamanların En İyi 500 Albümü" listesine dahil etti . 65. Grammy Ödülleri'nde albüm, Yılın Albümü , En İyi Pop Vokal Albümü ve En İyi Ses Mühendisliği Albümü (Klasik Olmayan) ödüllerini kazandı.<br>
+			</p>
+			</div>
+		
+			<div class="sarki">
+				<h2>Şarkılar</h2>
+					
+				<div class="sarki-ici">	
+				
+					<div class="sarki-tablo">
+					
+					<div class="hucre sol">
+						<h3>Şarkı İsimleri</h3>
+					</div>
+					<div class="hucre">
+					</div>
+					
+					<div class="hucre sol">
+						1. Music for a Sushi Restaurant
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5LYMamLv12UPbemOaTPyeV?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						2. Late Night Talking
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1qEmFfgcLObUfQm0j1W2CK?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						3. Grapejuice
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4j6kId9QIqhoXvqHKgSKa0?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						4. As It Was
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4Dvkj6JhhA12EX05fT7y2e?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						5. Daylight
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/51Zw1cKDgkad0CXv23HCMU?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						6. Little Freak
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3i058E8uxTsYqJ5NWZzqSj?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						7. Matilda
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6uvh0In7u1Xn4HgxOfAn8O?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						8. Cinema
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/35TyJIMR3xRouUuo2sjS6v?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						9. Daydreaming 
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/69w5X6uTrOaWM32IetSzvO?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						10. Keep Driving
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2NcQic8JxdjAlAHuNbOIRE?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						11. Satellite
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0rzaRSujxA0bKyjJl6vHYq?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						12. Boyfriends
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6qj02zSeEJGWZ4c0dn5QzJ?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						13. Love of My Life
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1mw0RgNXIpYRyyCdBQbLgA?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+
+			</div>
+		<div class="oylama-formu">
+                        <h3>Oylama Formu</h3>
+                        <hr style="margin-bottom: 5px;">
+
+                        <div class="sarki-oy-satiri">
+                            <span>1. Music for a Sushi Restaurant:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>2. Late Night Talking:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>3. Grapejuice:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>4. As It Was:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>5. Daylight:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>6. Little Freak:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>7. Matilda:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>8. Cinema:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>9. Daydreaming:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>10. Keep Driving:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>11. Satellite:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>12. Boyfriends:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>13. Love of My Life:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+                        <button class="anaButon" style="text-align: center; margin-top: 10px;" onclick="ortalamaHesapla()">Sonucu Gör</button>
+
+                        <div id="sonucAlani" class="sonuc-kutusu">
+                            <p style="margin:0; font-weight:bold;">Ortalamanız: <span id="puanEkrani" style="font-size: 20px;">0.0</span></p>
+                            <p id="mesajEkrani" style="margin-top: 10px; font-weight:bold;"></p>
+                        </div>
+
+                    </div>
+                    </div>
+            </div>
+		</div>
+
+        <script>
+            function ortalamaHesapla() {
+                let secimler = document.querySelectorAll('.puan-secimi');
+                let toplamPuan = 0;
+                let oyVerilenSarkiSayisi = 0;
+
+                secimler.forEach(function(secim) {
+                    let puan = parseInt(secim.value);
+                    if (puan > 0) { 
+                        toplamPuan += puan;
+                        oyVerilenSarkiSayisi++;
+                    }
+                });
+
+                
+                if (oyVerilenSarkiSayisi === 0) {
+                    alert("Lütfen en az bir şarkıya puan verin!");
+                    return; 
+                }
+
+                
+                let ortalama = toplamPuan / oyVerilenSarkiSayisi;
+                let yuvarlanmisOrtalama = ortalama.toFixed(1);
+
+                
+                document.getElementById('puanEkrani').innerText = yuvarlanmisOrtalama;
+
+                
+                let mesaj = "";
+                if (yuvarlanmisOrtalama >= 4.5) {
+                    mesaj = "Bu albüm senin favorin!";
+                } else if (yuvarlanmisOrtalama >= 3.5) {
+                    mesaj = "Bu albümü seviyorsun ama favorin olmayabilir.";
+                } else if (yuvarlanmisOrtalama >= 2.0) {
+                    mesaj = "Sadece birkaç şarkısını seviyorsun.";
+                } else {
+                    mesaj = "Bu albüm sana göre olmayabilir.";
+                }
+
+                document.getElementById('mesajEkrani').innerText = mesaj;
+                document.getElementById('sonucAlani').style.display = 'block';
+            }
+        </script>
+	</body>
+</html>

@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Red</title>
+		<link rel="icon" type="image/x-icon" href="../resimler/icon.png">
+		
+		<style>
+			*{box-sizing: border-box;}
+			body {
+			font-family: 'Poppins', sans-serif;
+			margin: 10px;
+			background: linear-gradient(135deg, #951e1a, #954d25);
+			background-attachment: fixed;
+			color: white;
+			}
+			h1, h2, h3 {
+			font-family: 'Playfair Display', serif; 
+			}
+			
+			.menu {
+				display: flex;
+				gap: 10px;
+				padding: 10px;
+			}
+			.geri, .anaButon, .iletisim{
+				display:inline-block;
+				
+				margin: 2px;
+				padding:5px 15px;
+				text-align: left;
+				background-color:#954d25;
+				
+				border-radius: 10px; 
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				font-weight: bold;
+				font-size: 14px;
+				color: white !important;
+				text-decoration: none;
+				
+				border: 1px solid 	#9e7c60;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+				transition: all 0.3s ease;
+			}
+			
+			.geri:hover, .anaButon:hover, .iletisim:hover {
+				background-color: #bca38d;
+				border-color:#48462f;
+				transform: translateY(-3px);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+				
+			}
+			.iletisim:hover { color: #fff !important; }
+
+
+			.header{
+				background-image: url('../resimler/red.jpeg');
+				background-size: cover;
+				background-position: center 30%;
+				background-repeat: no-repeat;
+				
+				color: #f0e6d2;
+				
+				border: 1px solid  #48462f;
+				margin: 5px 0 20px 0;
+				padding: 0 50px;
+				text-align: left;
+				
+				border-radius: 15px; 
+				text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+				
+				aspect-ratio: 21 / 6; 
+				display: flex; 
+				align-items: center; 
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+			}
+			.infoAlbümler{
+				
+				display: flex;
+				gap: 15px;
+				width: 100%;
+			}
+			.info, .sarki{
+				
+				color: White;
+				border: 5px solid #48462f;
+				padding: 20px;
+				text-align: left;
+				width:40%;
+				
+				background: rgba(158, 124, 96, 0.3);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+				
+				border-radius: 15px; 
+			}
+			.info { width: 40%; }
+			.sarki { width: 60%; display: flex; flex-direction: column; }
+			
+			.sarki h2 {
+				margin-top: 0;
+				margin-bottom: 15px;
+			}
+			
+			.sarki-ici {
+				display: flex;
+				gap: 15px;
+				width: 100%;
+				align-items: stretch;
+			}
+			
+			.sarki-tablo, .oylama-formu {
+				border-radius: 12px;
+				
+				background: rgba(188, 163, 141, 0.2);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+				border: 1px solid rgba(255, 255, 255, 0.3);
+				box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);
+				
+				max-height: 800px;
+				overflow-y: auto;
+			}
+			.sarki-tablo {
+				display: grid;
+				grid-template-columns: 35% 65%;
+				width: 65%;
+			}
+			
+			.oylama-formu {
+				width: 35%;
+				padding: 15px;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.oylama-formu h3 { margin-top: 0; margin-bottom: 5px;}
+
+			.hucre {
+				padding: 15px;
+				border-bottom: 1px solid #48462f; 
+				display: flex;
+				align-items: center; 
+				justify-content: center;
+				text-align: center;
+				transition: background-color 0.3s ease;
+			}
+
+			.hucre.sol {
+				border-right: 2px solid #48462f;
+				
+				
+			}
+			
+			.hucre h3 {
+				margin: 0;
+			}
+
+			.sarki-tablo .hucre:nth-last-child(-n+2) {
+				border-bottom: none;
+			}
+			hr {
+				border: none;
+				border-top: 1px solid #48462f;
+				margin-bottom: 15px;
+			}
+			
+			.sarki-tablo::-webkit-scrollbar, .oylama-formu::-webkit-scrollbar { width: 8px; }
+			.sarki-tablo::-webkit-scrollbar-track, .oylama-formu::-webkit-scrollbar-track { background: transparent; }
+			.sarki-tablo::-webkit-scrollbar-thumb, .oylama-formu::-webkit-scrollbar-thumb {
+				background: rgba(226, 183, 206, 0.4); 
+				border-radius: 10px; 
+			}
+			.sarki-tablo::-webkit-scrollbar-thumb:hover, .oylama-formu::-webkit-scrollbar-thumb:hover {
+				background: rgba(226, 183, 206, 0.7); 
+			}
+		
+
+			.sarki-oy-satiri {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px dashed #48462f;
+				padding-bottom: 8px;
+				padding-top: 5px;
+				font-size: 14px;
+				gap: 10px;
+				transition: background-color 0.3s ease;
+			}
+			.sarki-oy-satiri:hover, .hucre:hover {
+				background-color: rgba(149, 30, 26, 0.2);
+				border-radius: 8px;
+			}
+			
+			.sarki-oy-satiri span {
+				flex: 1;
+				min-width: 120px;
+			}
+
+			.puan-secimi {
+				padding: 4px;
+				border-radius: 5px;
+				border: 1px solid #48462f;
+				background-color: #954d25;
+				color: white;
+				font-weight: bold;
+				cursor: pointer;
+				flex-shrink: 0;
+				outline: none;
+			}
+
+			.sonuc-kutusu {
+				margin-top: 15px;
+				padding: 15px;
+				background-color: #951e1a;
+				backdrop-filter: blur(5px);
+				border-radius: 8px;
+				color: white;
+				text-align: center;
+				border: 1px solid #48462f;
+				display: none; 
+			}
+			
+			@media screen and (max-width: 1100px) {
+				.infoAlbümler { flex-direction: column; }
+				.info, .sarki { width: 100%; }
+				.sarki-ici { flex-direction: column; }
+				.sarki-tablo, .oylama-formu { width: 100%; }
+			}
+
+			@media screen and (max-width: 600px) {
+				.header { aspect-ratio: 16 / 8; padding: 0 20px; }
+				.sarki-tablo { grid-template-columns: 1fr; }
+				.hucre.sol { border-right: none; border-bottom: 1px dashed rgba(226, 183, 206, 0.4); }
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<div class="menu">
+			<a href="../ts.html" class="geri">Geri</a>
+			<a href="../Oyluyoruz.html" class="anaButon">Ana Sayfa</a>
+			<a href="../iletisim.html" class="iletisim">İletişim</a>
+		</div>
+	
+		
+		
+		<div class="header">
+		<h1>Red</h1>
+		</div>
+		
+		<div class="infoAlbümler">
+		
+			<div class="info">
+			<h2>Albüm Hakkında</h2>
+			<hr>
+			<p>Red, Amerikalı şarkıcı ve söz yazarı Taylor Swift'in dördüncü stüdyo albümüdür . 22 Ekim 2012'de Big Machine Records aracılığıyla yayınlandı. Duygusal karmaşaya yol açan bir ayrılıktan ilham alan Swift, Red'i başarısız bir ilişkinin ardından yaşananları anlatan bir ayrılık albümü olarak tanımladı.<br><br>
+			Red albümündeki şarkılar, kaybedilen aşktan kaynaklanan karmaşık ve çelişkili duyguları anlatıyor. Bu duyguları müzikle aktarmak için Swift, önceki albümlerinin country pop tarzından farklı stillerle denemeler yapmak üzere yeni prodüktörlerle çalıştı. Red albümünü Nathan Chapman , Dann Huff , Max Martin , Shellback , Jeff Bhasker , Dan Wilson , Jacknife Lee ve Butch Walker ile birlikte üretti . Eleştirmenler tarafından öncelikle pop albümü olarak değerlendirilen albüm, akustik enstrümanların yanı sıra synthesizer ve davul makinelerinin elektronik düzenlemelerini de içeren eklektik rock , folk ve country tarzlarını bir araya getiriyor . Swift , Red'i bir country albümü olarak tanıttı, ancak müzik eleştirmenleri tür sınıflandırmasını tartıştı ve Swift'in country sanatçısı kimliğini sorguladı.<br><br>
+			Swift, albümü Red Tour (2013–2014) ve yedi single ile destekledi; " We Are Never Ever Getting Back Together " ve " I Knew You Were Trouble " Billboard Hot 100'de bir ve iki numaraya , birçok ülkede ise ilk 10'a girdi; " Begin Again " ve " Red " ise ABD country listelerinde ilk 10'a giren single'lar oldu. Red, listelerin zirvesine yerleşti ve Avustralya, Kanada, Yeni Zelanda ve Birleşik Krallık'ta çoklu platin sertifikası aldı . Amerika Birleşik Devletleri'nde, Billboard 200'de yedi hafta boyunca zirvede kaldı - Swift'i Beatles'tan bu yana art arda üç albümü altı haftadan fazla bir numarada kalan ilk sanatçı yaptı - ve Amerika Kayıt Endüstrisi Birliği tarafından sekiz kez platin sertifikası aldı .<br><br>
+			Red albümünün ilk eleştirileri, Swift'in şarkı yazarlığını olgun bakış açıları ve keskin detaylar sergilediği için çoğunlukla övdü; ancak popa eğilimli prodüksiyon, onu cesur veya tutarsız bulan eleştirmenleri ikiye böldü. Red, 56. Grammy Ödülleri'nde Yılın Albümü ve En İyi Country Albümü dallarında aday gösterildi . Geriye dönüp bakıldığında, eleştirmenler albümü Swift'in olgunluğunu yansıtan ve şarkı yazarlığını daha yüksek seviyelere taşıyan, kariyerini tanımlayan bir albüm olarak değerlendirdi. Rolling Stone, albümü 2023 yılında " Tüm Zamanların En İyi 500 Albümü " listesinin revizyonunda 99. sıraya yerleştirdi . Swift'in eski albümlerinin sahipliğiyle ilgili 2019'daki bir anlaşmazlığın ardından , 2021'de yenidenr kaydedilmiş Red (Taylor's Version) albümünü yayınladı ve 2025'te orijinal albümün master kaydını satın aldı.<br>
+			</p>
+			</div>
+		
+			<div class="sarki">
+				<h2>Şarkılar</h2>
+					
+				<div class="sarki-ici">	
+				
+					<div class="sarki-tablo">
+					
+					<div class="hucre sol">
+						<h3>Şarkı İsimleri</h3>
+					</div>
+					<div class="hucre">
+					</div>
+					
+					<div class="hucre sol">
+						1. State Of Grace
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6lzc0Al0zfZOIFsFvBS1ki?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+
+					<div class="hucre sol">
+						2. Red
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4OAuvHryIVv4kMDNSLuPt6?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						3. Treacherous
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3S7HNKPakdwNEBFIVTL6dZ?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						4. I Knew You Were Trouble
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6AtZLIzUINvExIUy4QhdjP?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						5. All Too Well
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3nsfB1vus2qaloUdcBZvDu?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						6. 22
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3yII7UwgLF6K5zW3xad3MP?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						7. I Almost Do
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2r9CbjYgFhtAmcFv1cSquB?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						8. We Are Never Ever Getting Back Together
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5YqltLsjdqFtvqE7Nrysvs?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						9. Stay Stay Stay
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7eQj6r5PIdYKEIZjucBMcq?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						10. The Last Time
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0y6kdSRCVQhSsHSpWvTUm7?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						11. Holy Ground
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7J4b3LVCIGO4CMBDFLPoP6?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						12. Sad Beautiful Tragic
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/73qMN9bXy7MSPwwGfH3wQr?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						13. The Lucky One
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4e5ayHsOLJNLTGfjau2mEw?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						14. Everything Has Changed
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7qEUFOVcxRI19tbT68JcYK?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						15. Starlight
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7A2cNLRT0YJc1yjxHlKihs?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						16. Begin Again
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/05GsNucq8Bngd9fnd4fRa0?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						17. The Moment I Knew
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0NRHj8hDwwmSPaA41o379r?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					
+					<div class="hucre sol">
+						18. Come Back... Be Here
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4pNApnaUWAL2J4KO2eqokq?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						19. Girl At Home
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0DMVrlMUn01M0IcpDbwgu7?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						20. State Of Grace (Acoustic Version)
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5jAIouBES8LWMiriuNq170?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						21. Ronan
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7nWui6jiMM2m9qFmET1Mtj?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						22. Better Man
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4OmFmE0fzcMG6g0Y8p4eSD?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						23. Nothing New
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/01K4zKU104LyJ8gMb7227B?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						24. Babe
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0v4z1tuZvn6LGknom9Qx7d?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					
+					<div class="hucre sol">
+						25. Message In A Bottle
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3z6XUommYDWPHeFhmhhT6j?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						26. I Bet You Think About Me
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4CkgMiMqZ5JzW9iYXSTMTL?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						27. Forever Winter
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3oGVx9RBmiYGv5ZCecWLkx?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						28. Run
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4IQkfUsrwXol38VV3U7t7T?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						29. The Very First Night
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6pYNq0ZwpPVazKzsqpf0G8?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						30. All Too Well (10 Minute Version)
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5enxwA8aAbwZbf5qCHORXi?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+			</div>
+		<div class="oylama-formu">
+                        <h3>Oylama Formu</h3>
+                        <hr style="margin-bottom: 5px;">
+                        
+                        <div class="sarki-oy-satiri">
+                            <span>1. State Of Grace:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>2. Red:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>3. Treacherous:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>4. I Knew You Were Trouble:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>5. All Too Well:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>6. 22:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>7. I Almost Do:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>8. We Are Never Ever Getting Back Together:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>9. Stay Stay Stay:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>10. The Last Time:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>11. Holly Ground:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>12. Sad Beautiful Tragic:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>13. The Lucky One:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>14. Everything Has Changed:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>15. Starlight:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>16. Begin Again:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>17. The Moment I Knew:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>18. Come Back... Be Here:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>19. Girl At Home:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>20. State Of Grace (Acoustic Version):</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>21. Ronan:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>22. Better Man:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>23. Nothing New:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>24. Babe:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>25. Message In A Bottle:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>26. I Bet You Think About Me:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>27. Forever Winter:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>28. Run:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>29. The Very First Night:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>30. All Too Well (10 Minute Version):</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+
+                        <button class="anaButon" style="text-align: center; margin-top: 10px;" onclick="ortalamaHesapla()">Sonucu Gör</button>
+
+                        <div id="sonucAlani" class="sonuc-kutusu">
+                            <p style="margin:0; font-weight:bold;">Ortalamanız: <span id="puanEkrani" style="font-size: 20px;">0.0</span></p>
+                            <p id="mesajEkrani" style="margin-top: 10px; font-weight:bold;"></p>
+                        </div>
+
+                    </div>
+                    </div>
+            </div>
+		</div>
+
+        <script>
+            function ortalamaHesapla() {
+                let secimler = document.querySelectorAll('.puan-secimi');
+                let toplamPuan = 0;
+                let oyVerilenSarkiSayisi = 0;
+
+                secimler.forEach(function(secim) {
+                    let puan = parseInt(secim.value);
+                    if (puan > 0) { 
+                        toplamPuan += puan;
+                        oyVerilenSarkiSayisi++;
+                    }
+                });
+
+                
+                if (oyVerilenSarkiSayisi === 0) {
+                    alert("Lütfen en az bir şarkıya puan verin!");
+                    return; 
+                }
+
+                
+                let ortalama = toplamPuan / oyVerilenSarkiSayisi;
+                let yuvarlanmisOrtalama = ortalama.toFixed(1);
+
+                
+                document.getElementById('puanEkrani').innerText = yuvarlanmisOrtalama;
+
+                
+                let mesaj = "";
+                if (yuvarlanmisOrtalama >= 4.5) {
+                    mesaj = "Bu albüm senin favorin!";
+                } else if (yuvarlanmisOrtalama >= 3.5) {
+                    mesaj = "Bu albümü seviyorsun ama favorin olmayabilir.";
+                } else if (yuvarlanmisOrtalama >= 2.0) {
+                    mesaj = "Sadece birkaç şarkısını seviyorsun.";
+                } else {
+                    mesaj = "Bu albüm sana göre olmayabilir.";
+                }
+
+                document.getElementById('mesajEkrani').innerText = mesaj;
+                document.getElementById('sonucAlani').style.display = 'block';
+            }
+        </script>
+	</body>
+</html>

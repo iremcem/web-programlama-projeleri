@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Evermore</title>
+		<link rel="icon" type="image/x-icon" href="../resimler/icon.png">
+		
+		<style>
+			*{box-sizing: border-box;}
+			body {
+			font-family: 'Poppins', sans-serif;
+			margin: 10px;
+			background: linear-gradient(135deg, #3d2f27, #8c5332, #3a4237);
+			background-attachment: fixed;
+			color: #2e231d;
+			}
+			h1, h2, h3 {
+			font-family: 'Playfair Display', serif; 
+			}
+			
+			.menu {
+				display: flex;
+				gap: 10px;
+				padding: 10px;
+			}
+			.geri, .anaButon, .iletisim{
+				display:inline-block;
+				
+				margin: 2px;
+				padding:5px 15px;
+				text-align: left;
+				background-color: #7a4627;
+				
+				border-radius: 10px; 
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				font-weight: bold;
+				font-size: 14px;
+				color: #f4eee9 !important;
+				text-decoration: none;
+				
+				border: 1px solid #4a2a17;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+				transition: all 0.3s ease;
+			}
+			
+			.geri:hover, .anaButon:hover, .iletisim:hover {
+				background-color: #542d17;
+				border-color: #2e231d;
+				transform: translateY(-3px);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
+				
+			}
+			.iletisim:hover { color: #fff !important; }
+
+
+			.header{
+				background-image: url('../resimler/evermore.jpg');
+				background-size: cover;
+				background-position: center 35%;
+				background-repeat: no-repeat;
+				
+				color: #f4eee9;
+				
+				border: 1px solid #7a4627;
+				margin: 5px 0 20px 0;
+				padding: 0 50px;
+				text-align: left;
+				
+				border-radius: 15px; 
+				text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+				
+				aspect-ratio: 21 / 6; 
+				display: flex; 
+				align-items: center; 
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+			}
+			.infoAlbümler{
+				
+				display: flex;
+				gap: 15px;
+				width: 100%;
+			}
+			.info, .sarki{
+				color: #2e231d;
+				border: 1px solid rgba(122, 70, 39, 0.4);
+				padding: 20px;
+				text-align: left;
+				width:40%;
+				
+				background: rgba(227, 217, 204, 0.75);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+				border-radius: 15px;
+			}
+			.info { width: 40%; }
+			.sarki { width: 60%; display: flex; flex-direction: column; }
+			
+			.sarki h2 {
+				margin-top: 0;
+				margin-bottom: 15px;
+			}
+			
+			.sarki-ici {
+				display: flex;
+				gap: 15px;
+				width: 100%;
+				align-items: stretch;
+			}
+			
+			.sarki-tablo, .oylama-formu {
+				border-radius: 12px;
+				background: rgba(237, 229, 219, 0.65);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+				border: 1px solid rgba(122, 70, 39, 0.3);
+				box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);
+				max-height: 800px;
+				overflow-y: auto;
+			}
+			.sarki-tablo {
+				display: grid;
+				grid-template-columns: 35% 65%;
+				width: 65%;
+			}
+			
+			.oylama-formu {
+				width: 35%;
+				padding: 15px;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.oylama-formu h3 { margin-top: 0; margin-bottom: 5px;}
+
+			.hucre {
+				padding: 15px;
+				border-bottom: 1px solid #bdafa3;
+				display: flex;
+				align-items: center; 
+				justify-content: center;
+				text-align: center;
+				transition: background-color 0.3s ease;
+			}
+
+			.hucre.sol {
+				border-right: 2px solid #bdafa3;
+			}
+			
+			.hucre h3 {
+				margin: 0;
+			}
+
+			.sarki-tablo .hucre:nth-last-child(-n+2) {
+				border-bottom: none;
+			}
+			hr {
+				border: none;
+				border-top: 1px solid #7a4627;
+				margin-bottom: 15px;
+			}
+			
+			.sarki-tablo::-webkit-scrollbar, .oylama-formu::-webkit-scrollbar { width: 8px; }
+			.sarki-tablo::-webkit-scrollbar-track, .oylama-formu::-webkit-scrollbar-track { background: transparent; }
+			.sarki-tablo::-webkit-scrollbar-thumb, .oylama-formu::-webkit-scrollbar-thumb {
+				background: #7a4627; 
+				border-radius: 10px;
+			}
+			.sarki-tablo::-webkit-scrollbar-thumb:hover, .oylama-formu::-webkit-scrollbar-thumb:hover {
+				background: #542d17;
+			}
+		
+
+			.sarki-oy-satiri {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px dashed #bdafa3;
+				padding-bottom: 8px;
+				padding-top: 5px;
+				font-size: 14px;
+				gap: 10px;
+				transition: background-color 0.3s ease;
+			}
+			.sarki-oy-satiri:hover, .hucre:hover {
+				background-color: rgba(122, 70, 39, 0.12);
+				border-radius: 8px;
+			}
+			
+			.sarki-oy-satiri span {
+				flex: 1;
+				min-width: 120px;
+			}
+
+			.puan-secimi {
+				padding: 4px;
+				border-radius: 5px;
+				border: 1px solid #4a2a17;
+				background-color: #7a4627;
+				color: #f4eee9;
+				font-weight: bold;
+				cursor: pointer;
+				flex-shrink: 0;
+				outline: none;
+			}
+
+			.sonuc-kutusu {
+				margin-top: 15px;
+				padding: 15px;
+				background-color: #542d17;
+				backdrop-filter: blur(5px);
+				border-radius: 8px;
+				color: #f4eee9;
+				text-align: center;
+				border: 1px solid #2e231d;
+				display: none; 
+			}
+			
+			@media screen and (max-width: 1100px) {
+				.infoAlbümler { flex-direction: column; }
+				.info, .sarki { width: 100%; }
+				.sarki-ici { flex-direction: column; }
+				.sarki-tablo, .oylama-formu { width: 100%; }
+			}
+
+			@media screen and (max-width: 600px) {
+				.header { aspect-ratio: 16 / 8; padding: 0 20px; }
+				.sarki-tablo { grid-template-columns: 1fr; }
+				.hucre.sol { border-right: none; border-bottom: 1px dashed rgba(226, 183, 206, 0.4); }
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<div class="menu">
+			<a href="../ts.html" class="geri">Geri</a>
+			<a href="../Oyluyoruz.html" class="anaButon">Ana Sayfa</a>
+			<a href="../iletisim.html" class="iletisim">İletişim</a>
+		</div>
+	
+		
+		
+		<div class="header">
+		<h1>Evermore</h1>
+		</div>
+		
+		<div class="infoAlbümler">
+		
+			<div class="info">
+			<h2>Albüm Hakkında</h2>
+			<hr>
+			<p>
+			Evermore, Amerikalı şarkıcı-söz yazarı Taylor Swift'in dokuzuncu stüdyo albümüdür.11 Aralık 2020'de Republic Records aracılığıyla sürpriz bir şekilde piyasaya sürüldü . Swift, Evermore'u Temmuz ayında yayınlananönceki albümü Folklore'un "kardeş albümü" olarak tasarladı. Evermore'u çoğunlukla Aaron Dessner ile Hudson Vadisi'ndeki Long Pond Stüdyosu'nda.<br><br>
+			Evermore , Folklore'un kaçışçı fantezi şarkı yazımını kurgusal anlatılarla genişletiyor ve Swift'in COVID-19 pandemisi sırasında kendini izole ederken tasarladığı hayali dünyaya dalıyor . Şarkı sözleri, yasak aşk, boşanma ve sadakatsizlik gibi komplikasyonlardan kaynaklanan mutsuz sonlardan doğan özlem, keder, nostalji ve pişmanlık gibi huzursuz duyguları tasvir ediyor. Evermore , akustik ve atmosferik bir alternatif pop , oda rock , folk-pop , indie folk ve indie rock ses manzarasına sahip. Sade düzenlemeleri ve orkestrasyonları , parmakla çalınan gitarlar, piyanolar, yaylılar , incelikli synthesizer'lar ve programlanmış davullardan oluşuyor . Haim , The National ve Bon Iver konuk sanatçı olarak yer alıyor.<br><br>
+			Evermore albümü , Amerika Birleşik Devletleri'nde farklı radyo formatlarında yayınlanan üç single ile desteklendi . Çağdaş hit radyolarında yayınlanan " Willow ", Billboard Hot 100 listesinin zirvesine yerleşirken , " No Body, No Crime " ve " Coney Island " ise country ve alternatif radyolarda yayınlandı . Evermore , Avustralya, Kanada, Yeni Zelanda ve Birleşik Krallık'ta bir numaraya ulaştı ve çoklu platin sertifikası aldı . Amerika Birleşik Devletleri'nde ise Swift'in Billboard 200 listesinde art arda sekizinci bir numaralı çıkışı oldu ve 2021'in en çok satan alternatif albümü olarak Amerika Kayıt Endüstrisi Birliği tarafından dört kez platin sertifikası aldı.<br><br>
+			Müzik eleştirmenleri, Evermore'un Folklore'un tarzlarını genişletirken müzikal açıdan cesur ve deneysel olduğunu savundu . Birçok eleştiri Swift'in şarkı yazarlığını övdü, karakter incelemelerini karmaşık ve anlatıları iyi kurgulanmış buldu; bazıları ise övgülerinde daha temkinli davrandı ve albümü selefine göre daha az çığır açıcı buldu. Evermore, çeşitli yayınların 2020'nin en iyi albümleri sıralamasında yer aldı ve bazıları onu Folklore ile birlikte listeledi . 2022'deki 64. Grammy Ödülleri'nde Evermore , Yılın Albümü dalında aday gösterildi.<br>
+			</p>
+			</div>
+		
+			<div class="sarki">
+				<h2>Şarkılar</h2>
+					
+				<div class="sarki-ici">	
+				
+					<div class="sarki-tablo">
+					
+					<div class="hucre sol">
+						<h3>Şarkı İsimleri</h3>
+					</div>
+					<div class="hucre">
+					</div>
+					
+					<div class="hucre sol">
+						1. willow
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0lx2cLdOt3piJbcaXIV74f?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+
+					<div class="hucre sol">
+						2. champagne problems
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0sY6ZUTh4yoctD8VIXz339?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						3. gold rush
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5BK0uqwY9DNfZ630STAEaq?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						4. ’tis the damn season
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7dW84mWkdWE5a6lFWxJCBG?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						5. tolerate it
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0PurA4JVJ8YQgSVopY8fn6?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						6. no body, no crime (Ft. HAIM)
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3RaT22zZsxVYxxKR7TAaYF?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						7. happiness
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/73YUReisjb3A9ActdLLjJQ?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						8. dorothea
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/670fUmXf4KQekzbEgaXyPA?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						9. coney island (Ft. The National)
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3k7ne7VmH43ZPWxPdvPUgR?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						10. ivy
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/19CSr8rwW05VJL2F91KFNK?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						11. cowboy like me
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1XjHRolIXL2M1EEOUsGGR4?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						12. long story short
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2o2sgVJIgFXk8GQjWTgI6U?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						13. marjorie
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/12ntTeqEeTg7GAVpe8Mhpl?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						14. closure
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/35rdVq36LMHQX0Suw9a6tK?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						15. evermore (Ft. Bon Iver) 
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3O5osWf1rSoKMwe6E9ZaXP?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						16. right where you left me
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3zwMVvkBe2qIKDObWgXw4N?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						17. it’s time to go
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1kdWw77ZpYOkhxeuhzU1j6?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+			</div>
+		<div class="oylama-formu">
+                        <h3>Oylama Formu</h3>
+                        <hr style="margin-bottom: 5px;">
+                        
+                        <div class="sarki-oy-satiri">
+                            <span>1. willow:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>2. champagne problems:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>3. gold rush:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>4. ’tis the damn season:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>5. tolerate it:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>6. no body, no crime (Ft. HAIM):</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>7. happiness:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>8. dorothea:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>9. coney island (Ft. The National):</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>10. ivy:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>11. cowboy like me:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>12. long story short:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>13. marjorie:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>14. closure:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>15. evermore (Ft. Bon Iver):</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>16. right where you left me:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>17. it’s time to go:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <button class="anaButon" style="text-align: center; margin-top: 10px;" onclick="ortalamaHesapla()">Sonucu Gör</button>
+
+                        <div id="sonucAlani" class="sonuc-kutusu">
+                            <p style="margin:0; font-weight:bold;">Ortalamanız: <span id="puanEkrani" style="font-size: 20px;">0.0</span></p>
+                            <p id="mesajEkrani" style="margin-top: 10px; font-weight:bold;"></p>
+                        </div>
+
+                    </div>
+                    </div>
+            </div>
+		</div>
+
+        <script>
+            function ortalamaHesapla() {
+                let secimler = document.querySelectorAll('.puan-secimi');
+                let toplamPuan = 0;
+                let oyVerilenSarkiSayisi = 0;
+
+                secimler.forEach(function(secim) {
+                    let puan = parseInt(secim.value);
+                    if (puan > 0) { 
+                        toplamPuan += puan;
+                        oyVerilenSarkiSayisi++;
+                    }
+                });
+
+                
+                if (oyVerilenSarkiSayisi === 0) {
+                    alert("Lütfen en az bir şarkıya puan verin!");
+                    return; 
+                }
+
+                
+                let ortalama = toplamPuan / oyVerilenSarkiSayisi;
+                let yuvarlanmisOrtalama = ortalama.toFixed(1);
+
+                
+                document.getElementById('puanEkrani').innerText = yuvarlanmisOrtalama;
+
+                
+                let mesaj = "";
+                if (yuvarlanmisOrtalama >= 4.5) {
+                    mesaj = "Bu albüm senin favorin!";
+                } else if (yuvarlanmisOrtalama >= 3.5) {
+                    mesaj = "Bu albümü seviyorsun ama favorin olmayabilir.";
+                } else if (yuvarlanmisOrtalama >= 2.0) {
+                    mesaj = "Sadece birkaç şarkısını seviyorsun.";
+                } else {
+                    mesaj = "Bu albüm sana göre olmayabilir.";
+                }
+
+                document.getElementById('mesajEkrani').innerText = mesaj;
+                document.getElementById('sonucAlani').style.display = 'block';
+            }
+        </script>
+	</body>
+</html>

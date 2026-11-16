@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Taylor Swift (Debut)</title>
+		<link rel="icon" type="image/x-icon" href="../resimler/icon.png">
+		
+		<style>
+			*{box-sizing: border-box;}
+			body {
+				font-family: 'Poppins', sans-serif;
+				margin: 10px;
+				background: linear-gradient(135deg, #023637, #007a82, #00a3ad);
+				background-attachment: fixed;
+				color: white; 
+			}
+			
+			h1, h2, h3 {
+				font-family: 'Playfair Display', serif;
+			}
+			
+			.menu {
+				display: flex;
+				gap: 10px;
+				padding: 10px;
+			}
+			.geri, .anaButon, .iletisim {
+				display: inline-block;
+				margin: 2px;
+				padding: 5px 15px;
+				text-align: left;
+				background-color: rgba(0, 163, 173, 0.8); /* Turkuazın şeffaf hali */
+				border-radius: 10px; 
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				font-weight: bold;
+				font-size: 14px;
+				color: white !important;
+				text-decoration: none;
+				border: 1px solid rgba(151, 233, 193, 0.4);
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+				transition: all 0.3s ease;
+			}
+			
+			.geri:hover, .anaButon:hover, .iletisim:hover {
+				background-color: rgba(0, 253, 255, 0.8);
+				transform: translateY(-3px);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+			}
+
+			.header{
+				background-image: url('../resimler/tsdebut.jpg');
+				background-size: cover;
+				background-position: center 1%;
+				background-repeat: no-repeat;
+				
+				color: #97e9c1;
+				
+				border: 1px solid rgba(151, 233, 193, 0.3);
+				margin: 5px 0 20px 0;
+				padding: 0 50px;
+				text-align: left;
+				
+				border-radius: 15px; 
+				text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+				
+				aspect-ratio: 21 / 6;
+				display: flex; 
+				align-items: center;
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+			}
+			.infoAlbümler{
+				
+				display: flex;
+				gap: 15px;
+				width: 100%;
+			}
+			.info, .sarki {
+				color: white;
+				padding: 20px;
+				text-align: left;
+				border-radius: 15px; 
+				background: rgba(0, 163, 173, 0.25);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				border: 1px solid rgba(151, 233, 193, 0.2);
+				box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+			}
+			.info { width: 40%; }
+			.sarki { width: 60%; display: flex; flex-direction: column; }
+			
+			.sarki h2 {
+				margin-top: 0;
+				margin-bottom: 15px;
+			}
+			
+			.sarki-ici {
+				display: flex;
+				gap: 15px;
+				width: 100%;
+				align-items: stretch;
+			}
+			
+			.sarki-tablo, .oylama-formu {
+				border-radius: 12px;
+				
+				background: rgba(151, 233, 193, 0.15);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+				border: 1px solid rgba(151, 233, 193, 0.3);
+				box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);
+				
+				max-height: 800px;
+				overflow-y: auto;
+			}
+			.sarki-tablo {
+				display: grid;
+				grid-template-columns: 35% 65%;
+				width: 65%;
+			}
+			
+			.oylama-formu {
+				width: 35%;
+				padding: 15px;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			
+			.oylama-formu h3 { margin-top: 0; margin-bottom: 5px;}
+
+			.hucre {
+				padding: 15px;
+				border-bottom: 1px solid rgba(151, 233, 193, 0.2); 
+				display: flex;
+				align-items: center; 
+				justify-content: center;
+				text-align: center;
+				transition: background-color 0.3s ease;
+			}
+
+			.hucre.sol {
+				border-right: 1px solid rgba(151, 233, 193, 0.2);
+			}
+			
+			.hucre h3 {
+				margin: 0;
+			}
+
+			.sarki-tablo .hucre:nth-last-child(-n+2) {
+				border-bottom: none;
+			}
+			hr {
+				border: none;
+				border-top: 2px solid #00a3ad;
+				margin-bottom: 15px;
+			}
+			
+			/* Özel Kaydırma Çubuğu (Scrollbar) Tasarımı */
+			.sarki-tablo::-webkit-scrollbar, .oylama-formu::-webkit-scrollbar { width: 8px; }
+			.sarki-tablo::-webkit-scrollbar-track, .oylama-formu::-webkit-scrollbar-track { background: transparent; }
+			.sarki-tablo::-webkit-scrollbar-thumb, .oylama-formu::-webkit-scrollbar-thumb {
+				background: rgba(151, 233, 193, 0.4); 
+				border-radius: 10px; 
+			}
+			.sarki-tablo::-webkit-scrollbar-thumb:hover, .oylama-formu::-webkit-scrollbar-thumb:hover {
+				background: rgba(151, 233, 193, 0.7); 
+			}
+
+			.sarki-oy-satiri {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px dashed rgba(151, 233, 193, 0.4);
+				padding-bottom: 8px;
+				padding-top: 5px;
+				font-size: 14px;
+				gap: 10px;
+				transition: background-color 0.3s ease;
+			}
+			.sarki-oy-satiri:hover, .hucre:hover {
+				background-color: rgba(255, 255, 255, 0.1);
+				border-radius: 8px;
+			}
+			
+			.sarki-oy-satiri span {
+				flex: 1; 
+				min-width: 120px;
+			}
+
+			.puan-secimi {
+				padding: 6px;
+				border-radius: 5px;
+				border: 1px solid rgba(151, 233, 193, 0.5);
+				background-color: #00a3ad; 
+				color: white; 
+				font-family: 'Poppins', sans-serif;
+				font-weight: bold;
+				cursor: pointer;
+				flex-shrink: 0;
+				outline: none;
+			}
+			.puan-secimi option {
+				background-color: #025758; /* Koyu yeşil arka plan */
+				color: white; 
+				font-weight: bold;
+			}
+
+			.sonuc-kutusu {
+				margin-top: 15px;
+				padding: 15px;
+				background-color: rgba(0, 163, 173, 0.9);
+				backdrop-filter: blur(5px);
+				border-radius: 8px;
+				color: white;
+				text-align: center;
+				border: 1px solid rgba(151, 233, 193, 0.4);
+				display: none;
+			}
+			
+			/* MOBİL UYUM */
+			@media screen and (max-width: 1100px) {
+				.infoAlbümler { flex-direction: column; }
+				.info, .sarki { width: 100%; }
+				.sarki-ici { flex-direction: column; }
+				.sarki-tablo, .oylama-formu { width: 100%; max-height: 600px; }
+			}
+
+			@media screen and (max-width: 600px) {
+				.header { aspect-ratio: 16 / 8; padding: 0 20px; }
+				.sarki-tablo { grid-template-columns: 1fr; }
+				.hucre.sol { border-right: none; border-bottom: 1px dashed rgba(151, 233, 193, 0.4); }
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="menu">
+			<a href="../ts.html" class="geri">Geri</a>
+			<a href="../Oyluyoruz.html" class="anaButon">Ana Sayfa</a>
+			<a href="../iletisim.html" class="iletisim">İletişim</a>
+		</div>
+	
+		
+		
+		<div class="header">
+		<h1>Taylor Swift (Debut)</h1>
+		</div>
+		
+		<div class="infoAlbümler">
+		
+			<div class="info">
+			<h2>Albüm Hakkında</h2>
+			<hr>
+			<p>Taylor Swift, Amerikalı şarkıcı-söz yazarı Taylor Swift'in ilk stüdyo albümüdür. 24 Ekim 2006'da Kuzey Amerika'da yayınlandı ve2007 ile 2008 yılları arasında Big Machine Records tarafından birçok kez yeniden basıldı . Swift'in hayata dair gençlik bakış açısından ilham alan şarkı sözleri, aşk, arkadaşlık ve güvensizlik temalarını ele alıyor.<br><br>
+			Swift, 14 yaşında Pennsylvania'dan Nashville, Tennessee'ye taşınarak Sony/ATV Tree Music Publishing ile şarkı yazarlığı sözleşmesi imzaladı . 2005 yılında Big Machine ile yaptığı kayıt sözleşmesi , lise birinci sınıfındayken yapımcı Nathan Chapman ile albüm üzerinde çalışmasına olanak sağladı . Taylor Swift albümündeki tüm şarkıları kendisi yazdı veya ortak yazdı ; ortak yazarlar arasında Robert Ellis Orrall , Brian Maher, Angelo Petraglia ve Liz Rose yer alıyor . Müzikal olarak Taylor Swift, pop ve pop rock unsurları içeren , gitar, banjo ve keman gibi akustik düzenlemelere sahip bir country albümüdür .<br><br>
+			Albümden beş şarkı single olarak yayınlandı; " Our Song " ve " Should've Said No " Hot Country Songs listesinde zirveye yerleşirken , " Teardrops on My Guitar " Pop Songs listesinde ilk 10'da yer aldı . Swift, 2006 yılında altı aylık bir radyo turnesine çıktı ve 2006-2007 yılları boyunca diğer country sanatçılarının turnelerinde ön grup olarak sahne aldı . Taylor Swift'i Myspace adlı sosyal ağ sitesi aracılığıyla tanıtarak , country müziği için hedef kitle olarak dışlanmış olan genç bir kitleye ulaştı. İlk eleştiriler, albümün geniş kitlelere hitap etme özelliğini ve Swift'in ergenlik duygularını ve deneyimlerini içtenlikle yansıtmasını övdü. Taylor Swift, 2008 Akademi Country Müzik Ödülleri'nde Yılın Albümü dalında aday gösterildi .<br><br>
+			Amerika Birleşik Devletleri'nde Taylor Swift , En İyi Country Albümleri listesinde 24 hafta boyunca bir numarada kaldı , Billboard 200 listesinde 2000'li yılların en uzun süre listede kalan albümü oldu ve Swift'i , Amerika Kayıt Endüstrisi Birliği ( RIAA) tarafından platin sertifikalı bir ilk albümdeki tüm şarkıları yazan veya ortak yazan ilk kadın country sanatçısı yaptı . Taylor Swift daha sonra Amerika Birleşik Devletleri'nde sekiz kez platin sertifikası aldı. Taylor Swift'in country pop tarzı ve otobiyografik şarkı yazarlığı, Swift'in sonraki albümleri için bir şablon oluşturdu ve diğer itirafçı şarkı yazarlarına ilham kaynağı oldu. Rolling Stone, 2022'deki "Tüm Zamanların En İyi 100 İlk Albümü" listesine bu albümü de dahil etti.<br></p>
+			</div>
+		
+			<div class="sarki">
+				<h2>Şarkılar</h2>
+					
+				<div class="sarki-ici">	
+				
+					<div class="sarki-tablo">
+					
+					<div class="hucre sol">
+						<h3>Şarkı İsimleri</h3>
+					</div>
+					<div class="hucre">
+					</div>
+					
+					<div class="hucre sol">
+						1. Tim McGraw
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2Fn01AIMyHbha2ceNQeOqw?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+
+					<div class="hucre sol">
+						2. Picture To Burn
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4BYejINgfZF0qKDMEH2cim?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						3. Teardrops On My Guitar
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2TF4UtYreqNbQ6Z9AccldU?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						4. A Place in This World
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1oR4MUBpyNrAViC8wPNpfm?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						5. Cold As You
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/569sXXQ7t0jSdqHooi2yqs?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						6. The Outside
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5Tj2MqcFMf60CaGsKbM1aq?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						7. Tied Together with a Smile
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2zzxwmoOBnXDT0KnJsoIWk?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						8. Stay Beautiful 
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/41sjzdjScVwnxnxADElts6?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						9. Should've Said No
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6CdaXOq1MWe2JHDalTG01d?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						10. Mary's Song (Oh My My My)
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2O8sogKJCfVZ4rotBv1vVF?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+					
+					<div class="hucre sol">
+						11. Our Song
+					</div>
+					<div class="hucre">
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1j6gmK6u4WNI33lMZ8dC1s?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+					</div>
+			
+			</div>
+		<div class="oylama-formu">
+                        <h3>Oylama Formu</h3>
+                        <hr style="margin-bottom: 5px;">
+                        
+                        <div class="sarki-oy-satiri">
+                            <span>1. Tim McGraw:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>2. Picture To Burn:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>3. Teardrops On My Guitar:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+
+                        <div class="sarki-oy-satiri">
+                            <span>4. A Place in This World:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>5. Cold As You:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>6. The Outside:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>7. Tied Together with a Smile:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>8. Stay Beautiful:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>9. Should've Said No:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						 <div class="sarki-oy-satiri">
+                            <span>10. Mary's Song (Oh My My My):</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+						<div class="sarki-oy-satiri">
+                            <span>11. Our Song:</span>
+                            <select class="puan-secimi">
+                                <option value="0">Seç</option>
+                                <option value="1">⭐</option>
+								<option value="2">⭐⭐</option>
+								<option value="3">⭐⭐⭐</option>
+								<option value="4">⭐⭐⭐⭐</option>
+								<option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+						
+
+                        <button class="anaButon" style="text-align: center; margin-top: 10px;" onclick="ortalamaHesapla()">Sonucu Gör</button>
+
+                        <div id="sonucAlani" class="sonuc-kutusu">
+                            <p style="margin:0; font-weight:bold;">Ortalamanız: <span id="puanEkrani" style="font-size: 20px;">0.0</span></p>
+                            <p id="mesajEkrani" style="margin-top: 10px; font-weight:bold;"></p>
+                        </div>
+
+                    </div>
+                    </div>
+            </div>
+		</div>
+
+        <script>
+            function ortalamaHesapla() {
+                let secimler = document.querySelectorAll('.puan-secimi');
+                let toplamPuan = 0;
+                let oyVerilenSarkiSayisi = 0;
+
+                secimler.forEach(function(secim) {
+                    let puan = parseInt(secim.value);
+                    if (puan > 0) { 
+                        toplamPuan += puan;
+                        oyVerilenSarkiSayisi++;
+                    }
+                });
+
+                
+                if (oyVerilenSarkiSayisi === 0) {
+                    alert("Lütfen en az bir şarkıya puan verin!");
+                    return; 
+                }
+
+                
+                let ortalama = toplamPuan / oyVerilenSarkiSayisi;
+                let yuvarlanmisOrtalama = ortalama.toFixed(1);
+
+                
+                document.getElementById('puanEkrani').innerText = yuvarlanmisOrtalama;
+
+                
+                let mesaj = "";
+                if (yuvarlanmisOrtalama >= 4.5) {
+                    mesaj = "Bu albüm senin favorin!";
+                } else if (yuvarlanmisOrtalama >= 3.5) {
+                    mesaj = "Bu albümü seviyorsun ama favorin olmayabilir.";
+                } else if (yuvarlanmisOrtalama >= 2.0) {
+                    mesaj = "Sadece birkaç şarkısını seviyorsun.";
+                } else {
+                    mesaj = "Bu albüm sana göre olmayabilir.";
+                }
+
+                document.getElementById('mesajEkrani').innerText = mesaj;
+                document.getElementById('sonucAlani').style.display = 'block';
+            }
+        </script>
+	</body>
+</html>
