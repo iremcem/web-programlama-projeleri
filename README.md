@@ -14,3 +14,4 @@ Bu proje, **İstanbul Gedik Üniversitesi — Bilişim Güvenliği Teknolojisi**
 * **Anlık Arama ve Filtreleme:** Kullanıcıların sanatçı ve albüm içerikleri arasında sayfa yenilenmeden hızlıca arama yapabilmesi.
 * **Modüler Klasör Mimarisi:** Sanatçı, albüm ve medya varlıklarının düzenli dizin yapısıyla yönetilmesi.
 * **İstemci Tarafı Doğrulama:** Kullanıcı etkileşimlerinde temel giriş kontrolleri ve arayüz güvenliği pratikleri.
+Not: Depo boyutunu optimize etmek amacıyla yüksek çözünürlüklü medya ve görsel dosyaları hariç tutulmuş, projenin tüm HTML5, CSS3 ve JavaScript kaynak kodları paylaşılmıştır.
