@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="tr">
+	<head>
+		<meta charset="UTF-8">
+		<title>Oyluyoruz - Ana Sayfa</title>
+		<link rel="icon" type="image/x-icon" href="resimler/icon.png">
+		
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+		
+		<style>
+			* { box-sizing: border-box; }
+			
+			body {
+				font-family: 'Poppins', sans-serif;
+				margin: 10px;
+				background: linear-gradient(135deg, #fce4ec, #e8f5e9, #e3f2fd);
+				background-attachment: fixed;
+				color: #2c3e50;
+			}
+			
+			h1, h2, h3 {
+				font-family: 'Playfair Display', serif;
+			}
+			
+			.menu {
+				display: flex;
+				gap: 10px;
+				padding: 10px;
+			}
+			
+			.iletisim {
+				display: inline-block;
+				margin: 2px;
+				padding: 8px 20px;
+				text-align: center;
+				background-color: #2c3e50;
+				border-radius: 12px; 
+				font-weight: 600;
+				font-size: 14px;
+				color: #ffffff !important;
+				text-decoration: none;
+				border: 1px solid #2c3e50;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+				transition: all 0.3s ease;
+			}
+			
+			.iletisim:hover {
+				background-color: transparent; 
+				color: #2c3e50 !important;
+				transform: translateY(-3px);
+				box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+			}
+
+			.header {
+				background: rgba(255, 255, 255, 0.8);
+				backdrop-filter: blur(15px);
+				-webkit-backdrop-filter: blur(15px);
+				color: #2c3e50;
+				border: 2px solid #2c3e50;
+				margin: 5px 0 25px 0;
+				padding: 35px;
+				text-align: center;
+				border-radius: 15px;
+				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+			}
+			
+			.header h1 {
+				margin: 0;
+				font-size: 42px;
+				letter-spacing: 4px;
+				font-weight: bold;
+			}
+			
+			.arama-alani {
+				text-align: center;
+				margin: 0 auto 25px auto;
+				max-width: 600px;
+				padding: 0 10px;
+			}
+			
+			.arama-alani input {
+				width: 100%;
+				padding: 15px 25px;
+				font-size: 16px;
+				font-family: 'Poppins', sans-serif;
+				color: #2c3e50;
+				background: rgba(255, 255, 255, 0.8);
+				border: 2px solid #2c3e50;
+				border-radius: 30px;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+				outline: none;
+				transition: all 0.3s ease;
+			}
+
+			.arama-alani input:focus {
+				background: #ffffff;
+				box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+				transform: translateY(-2px);
+			}
+			
+			.kart-container {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 20px;
+				padding: 10px 0;
+			}
+			
+			.kart-linki {
+				text-decoration: none;
+				display: block;
+			}
+			
+			.sanatci-kart {
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+				border-radius: 15px;
+				aspect-ratio: 1 / 1; 
+				display: flex; 
+				align-items: center; 
+				justify-content: center; 
+				padding: 20px; 
+				border: 2px solid #2c3e50;
+				box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+				transition: all 0.4s ease;
+				cursor: pointer;
+				position: relative;
+				overflow: hidden;
+			}
+			
+			.sanatci-kart::before {
+				content: '';
+				position: absolute;
+				top: 0; left: 0; right: 0; bottom: 0;
+				background: rgba(0, 0, 0, 0.4);
+				transition: all 0.4s ease;
+				z-index: 1;
+			}
+
+			.sanatci-kart h1 {
+				color: white;
+				font-size: 28px;
+				margin: 0;
+				text-align: center;
+				text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.9);
+				z-index: 2;
+				transition: all 0.4s ease;
+			}
+			
+			.sanatci-kart:hover {
+				transform: translateY(-7px);
+				box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+			}
+			
+			.sanatci-kart:hover::before {
+				background: rgba(0, 0, 0, 0.2);
+			}
+			
+			.sanatci-kart:hover h1 {
+				transform: scale(1.08);
+			}
+			
+			.ts {
+				background-image: url('resimler/ts.jpeg');
+			}
+			.ts:hover {
+				border-color: #9c27b0;
+				box-shadow: 0 15px 35px rgba(156, 39, 176, 0.4);
+			}
+			
+			.hs {
+				background-image: url('resimler/hs.jpg');
+				background-position: center 41%;
+			}
+			.hs:hover {
+				border-color: #e91e63;
+				box-shadow: 0 15px 35px rgba(233, 30, 99, 0.4);
+			}
+			
+			.nh {
+				background-image: url('resimler/nh.jpg');
+				background-position: center 47%;
+			}
+			.nh:hover {
+				border-color: #00bcd4;
+				box-shadow: 0 15px 35px rgba(0, 188, 212, 0.4);
+			}
+
+			@media screen and (max-width: 900px) {
+				.kart-container { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+				.sanatci-kart h1 { font-size: 24px; }
+				.header h1 { font-size: 32px; }
+			}
+			
+			@media screen and (max-width: 600px) {
+				.kart-container { grid-template-columns: 1fr; }
+				.header { padding: 25px; }
+				.header h1 { font-size: 28px; }
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="menu">
+			<a href="iletisim.html" class="iletisim">İletişim</a>
+		</div>
+		
+		<div class="header">
+			<h1>OYLUYORUZ</h1>
+		</div>
+		
+		<div class="arama-alani">
+			<input type="text" id="aramaKutusu" onkeyup="sanatciFiltrele()" placeholder="Sanatçı ara (örn: Taylor)...">
+		</div>
+		
+		<div class="kart-container">
+			<a href="ts.html" class="kart-linki">
+				<div class="sanatci-kart ts">
+					<h1>Taylor Swift</h1>
+				</div>
+			</a>
+			
+			<a href="hs.html" class="kart-linki">
+				<div class="sanatci-kart hs">
+					<h1>Harry Styles</h1>
+				</div>
+			</a>
+			
+			<a href="nh.html" class="kart-linki">
+				<div class="sanatci-kart nh">
+					<h1>Niall Horan</h1>
+				</div>
+			</a>
+		</div>
+		
+		<script>
+			function sanatciFiltrele() {
+				let arananKelime = document.getElementById('aramaKutusu').value.toLowerCase();
+				let kartlar = document.getElementsByClassName('kart-linki');
+
+				for (let i = 0; i < kartlar.length; i++) {
+					let sanatciAdi = kartlar[i].querySelector('.sanatci-kart h1').innerText.toLowerCase();
+		
+					if (sanatciAdi.includes(arananKelime)) {
+						kartlar[i].style.display = "";
+					} else {
+						kartlar[i].style.display = "none";
+					}
+				}
+			}
+		</script>
+		
+	</body>
+</html>
